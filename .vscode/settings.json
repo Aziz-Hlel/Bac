@@ -2,4 +2,5 @@
     "material-icon-theme.folders.associations": {
         "makefiles": "rules"
     },
+    "java.compile.nullAnalysis.mode": "automatic",
 }
