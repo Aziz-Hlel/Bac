@@ -1,22 +1,22 @@
 services:
 
-  backend:
+  api:
     build:
       context: ..
-      dockerfile: ./docker/Dockerfile.dev.api
+      dockerfile: ${PROJECT_ROOT}/docker/Dockerfile.dev.api
     restart: unless-stopped
     env_file:
-      - ../config/.env.dev
-      - ../.env.local
-      - ../.env
+      - ${PROJECT_ROOT}/config/.env.dev
+      - ${PROJECT_ROOT}/.env.local
+      - ${PROJECT_ROOT}/.env
     ports:
-      - '${SERVER_PORT:-3000}:${SERVER_PORT:-3000}'
+      - '${SERVER_PORT:-8080}:${SERVER_PORT:-8080}'
       - "5005:5005"  # Debug port
     volumes:
       # Volume mount for hot reload - critical for development
-      - ./apps/api/src:/app/src
-      - ./apps/api/pom.xml:/app/pom.xml
-      - ./apps/api/target:/app/target
+      - ${PROJECT_ROOT}/apps/api/src:/app/apps/api/src
+      - ${PROJECT_ROOT}/apps/api/pom.xml:/app/apps/api/pom.xml
+      - ${PROJECT_ROOT}/apps/api/target:/app/apps/api/target
       # Maven cache to avoid re-downloading dependencies
       - maven-cache-dev:/root/.m2
     depends_on:
@@ -34,16 +34,15 @@ services:
     image: postgres:latest
   
     env_file:
-    - ../config/.env.dev
-    - ../.env.local
-    - ../.env
+    - ${PROJECT_ROOT}/config/.env.dev
+    - ${PROJECT_ROOT}/.env.local
+    - ${PROJECT_ROOT}/.env
 
     ports:
     - '${DB_PORT:-5432}:${DB_PORT:-5432}'
 
-
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U user -d mydb "] # ? make variables dynamic
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB} "]
       interval: 5s
       retries: 10
       timeout: 5s
@@ -52,4 +51,7 @@ services:
       - db_data_dev:/var/lib/postgresql/data
 
 volumes:
-  postgres-data:
+  db_data_dev:
+    driver: local
+  maven-cache-dev:
+    driver: local
