@@ -25,7 +25,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Exam {
-
+    // Tablo t3 les roznemet les examens en general , since les examens kol yet3addew fard w9t f touns l kol
+    // donc l superadmin(me) set them up once each year
     @Id
     @GeneratedValue(generator = "UUID")
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "uuid")

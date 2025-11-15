@@ -10,6 +10,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -24,7 +26,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClassUnit {
-
+    // add a unique constraint on name and school , each school can have a unique
+    // class with unique name
     @Id
     @GeneratedValue(generator = "UUID")
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "uuid")
@@ -44,8 +47,8 @@ public class ClassUnit {
     @Column(nullable = true)
     private SchoolMajors schoolMajorsRetake;
 
-    @OneToMany
-    @Column(nullable = false, updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "school_id", nullable = false, updatable = false)
     private School school;
 
 }

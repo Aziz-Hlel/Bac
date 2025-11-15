@@ -17,6 +17,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SchoolOptionalSubjects {
 
+    // this table is to specify how many classes are reserved for each optional
+    // subject, look into the the Term field, i think it's useless cuz you can't
+    // retake any optional subject
     @EmbeddedId
     private SchoolOptionalSubjectsId schoolOptionalSubjectsId;
 

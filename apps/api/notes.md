@@ -1,5 +1,5 @@
-
 <!-- add  @Builder.Default for added security mesures, so that schoolMajors is nitilized to an empty list when using builder, it's like more necessary for testing reason and non http calls-->
+
 @Data
 @Builder
 public class BulkCreateSchoolMajorsRequest {
@@ -12,9 +12,11 @@ public class BulkCreateSchoolMajorsRequest {
                      // default with null.
 
     private final List<SchoolMajorsRequest> schoolMajors = new ArrayList<>();
+
 }
 
 <!-- in the mapper layer, you should still verify if the object is nulland here s the reasons  -->
+
 ⚠️ Why Still Do the Null Check in the Mapper?
 MapStruct is a low-level transformation layer.
 It may be reused in contexts other than HTTP (e.g., unit tests, background jobs, etc.), where you can’t guarantee input is valid or initialized.
@@ -29,14 +31,15 @@ At the mapper level, don’t assume anything. Always validate your inputs.
 Validation prevents invalid API calls.
 Null checks protect against developer misuse or internal bugs.
 
-
 # java
+
 default List<SchoolMajors> toEntityList(List<SchoolMajorsRequest> requests, UUID schoolId) {
-    if (requests == null || requests.isEmpty()) { // always add these type of conditions
-        return List.of();
-    }
-    return requests.stream()
-                   .map(req -> toEntity(req, schoolId))
-                   .toList();
+if (requests == null || requests.isEmpty()) { // always add these type of conditions
+return List.of();
 }
+return requests.stream()
+.map(req -> toEntity(req, schoolId))
+.toList();
+}
+
 #
