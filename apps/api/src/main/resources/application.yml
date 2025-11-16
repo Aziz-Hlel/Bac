@@ -35,13 +35,3 @@ server:
   servlet:
     context-path: /api # This automatically prefixes every controller path with /api
 
-logging:
-  level:
-    org:
-      hibernate:
-        SQL: DEBUG
-        type:
-          descriptor:
-            sql: BasicBinder:TRACE
-    # org.hibernate.SQL: DEBUG
-    # org.hibernate.type.descriptor.sql.BasicBinder: TRACE

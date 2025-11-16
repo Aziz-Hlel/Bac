@@ -3,7 +3,6 @@ services:
     build:
       context: ..
       dockerfile: ${PROJECT_ROOT}/docker/Dockerfile.dev.api
-    restart: unless-stopped
     env_file:
       - ${PROJECT_ROOT}/config/.env.dev
       - ${PROJECT_ROOT}/.env.local
@@ -18,9 +17,13 @@ services:
       - ${PROJECT_ROOT}/apps/api/target:/app/apps/api/target
       # Maven cache to avoid re-downloading dependencies
       - maven-cache-dev:/root/.m2
+
+    # restart: unless-stopped
+
     depends_on:
       db:
         condition: service_healthy
+
     # healthcheck:
     #   test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
     #   interval: 30s

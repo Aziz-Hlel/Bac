@@ -8,11 +8,12 @@ import com.tigana.SchoolOptionalSubject.Model.SchoolOptionalSubjects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,19 +36,31 @@ public class ClassUnit {
 
     private String name;
 
-    @OneToMany
-    @Column(nullable = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumns({
+            @JoinColumn(name = "principal_major_school_id", referencedColumnName = "schoolId"),
+            @JoinColumn(name = "principal_major_term", referencedColumnName = "term"),
+            @JoinColumn(name = "principal_major_name", referencedColumnName = "majorName")
+    })
     private SchoolMajors schoolMajorsPrincipal;
 
-    @OneToMany
-    @Column(nullable = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumns({
+            @JoinColumn(name = "principal_optional_school_id", referencedColumnName = "schoolId"),
+            @JoinColumn(name = "principal_optional_term", referencedColumnName = "term"),
+            @JoinColumn(name = "principal_optional_subject", referencedColumnName = "optionalSubject")
+    })
     private SchoolOptionalSubjects schoolOptionalSubjectsPrincipal;
 
-    @OneToMany
-    @Column(nullable = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumns({
+            @JoinColumn(name = "retake_major_school_id", referencedColumnName = "schoolId"),
+            @JoinColumn(name = "retake_major_term", referencedColumnName = "term"),
+            @JoinColumn(name = "retake_major_name", referencedColumnName = "majorName")
+    })
     private SchoolMajors schoolMajorsRetake;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id", nullable = false, updatable = false)
     private School school;
 
