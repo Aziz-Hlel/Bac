@@ -11,16 +11,9 @@ import com.tigana.ClassUnit.DTO.ClassUnitResponse;
 import com.tigana.ClassUnit.Mapper.ClassUnitMapper;
 import com.tigana.ClassUnit.Model.ClassUnit;
 import com.tigana.ClassUnit.Repo.ClassUnitRepo;
-import com.tigana.Enums.TermEnums;
 import com.tigana.ErrorHandler.Exceptions.ResourceNotFoundException;
 import com.tigana.School.Model.School;
 import com.tigana.School.Service.SchoolService;
-import com.tigana.SchoolMajors.Model.SchoolMajors;
-import com.tigana.SchoolMajors.Model.SchoolMajorsId;
-import com.tigana.SchoolMajors.Service.SchoolMajorsService;
-import com.tigana.SchoolOptionalSubject.Model.SchoolOptionalSubjects;
-import com.tigana.SchoolOptionalSubject.Model.SchoolOptionalSubjectsId;
-import com.tigana.SchoolOptionalSubject.Service.SchoolOptionalSubjectsService;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -34,44 +27,14 @@ public class ClassUnitService {
     private final ClassUnitMapper classUnitMapper;
 
     private final SchoolService schoolService;
-    private final SchoolMajorsService schoolMajorsService;
-    private final SchoolOptionalSubjectsService schoolOptionalSubjectsService;
 
     ClassUnit toEntity(ClassUnitRequest request, UUID userId, UUID schoolId) {
 
-        SchoolMajors principalSchoolMajors = null;
-        if (request.getPrincipalMajorName() != null) {
-            SchoolMajorsId principalSchoolMajorsId = new SchoolMajorsId(schoolId, TermEnums.PRINCIPAL,
-                    request.getPrincipalMajorName());
-
-            principalSchoolMajors = schoolMajorsService.getSchoolMajor(principalSchoolMajorsId);
-
-        }
-
-        SchoolMajors retakeSchoolMajors = null;
-        if (request.getRetakeMajorName() != null) {
-
-            SchoolMajorsId retakeSchoolMajorsId = new SchoolMajorsId(schoolId, TermEnums.RETAKE,
-                    request.getRetakeMajorName());
-
-            retakeSchoolMajors = schoolMajorsService.getSchoolMajor(retakeSchoolMajorsId);
-        }
-
-        SchoolOptionalSubjects principalOptionalSubjects = null;
-        if (request.getPrincipalOptionalSubject() != null) {
-            SchoolOptionalSubjectsId optionalSubjectsId = new SchoolOptionalSubjectsId(schoolId, TermEnums.PRINCIPAL,
-                    request.getPrincipalOptionalSubject());
-
-            principalOptionalSubjects = schoolOptionalSubjectsService.getSchoolOptionalSubject(optionalSubjectsId);
-        }
 
         School school = schoolService.getSchoolEntity(schoolId, userId);
 
         ClassUnit entity = ClassUnit.builder()
                 .name(request.getName())
-                .schoolMajorsPrincipal(principalSchoolMajors)
-                .schoolMajorsRetake(retakeSchoolMajors)
-                .schoolOptionalSubjectsPrincipal(principalOptionalSubjects)
                 .school(school)
                 .build();
 

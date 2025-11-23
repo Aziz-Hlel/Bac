@@ -12,7 +12,7 @@ public record ExamResponse(
         UUID id,
         MajorEnums major,
         SubjectEnums subject,
-        SessionEnums seesion,
+        SessionEnums session,
         float duration,
         TermEnums term,
         LocalDate date) {

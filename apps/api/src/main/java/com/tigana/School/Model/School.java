@@ -3,7 +3,7 @@ package com.tigana.School.Model;
 import java.util.UUID;
 
 import com.tigana.Enums.CityEnums;
-import com.tigana.Users.Entity.User;
+import com.tigana.Users.Model.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,12 +30,16 @@ public class School {
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "uuid")
     private UUID id;
 
+    @Column(name = "public_id", unique = true, nullable = false)
     private String publicId;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private CityEnums city;
 
+    @Column(nullable = false)
     private String address;
 
     @OneToOne(mappedBy = "school", fetch = FetchType.LAZY, optional = false)

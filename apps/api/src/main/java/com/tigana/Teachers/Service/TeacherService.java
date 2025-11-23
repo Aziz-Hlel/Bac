@@ -13,7 +13,7 @@ import com.tigana.Teachers.DTO.TeacherResponse;
 import com.tigana.Teachers.Mapper.TeacherMapper;
 import com.tigana.Teachers.Model.Teacher;
 import com.tigana.Teachers.Repo.TeacherRepo;
-import com.tigana.Users.Entity.User;
+import com.tigana.Users.Model.User;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

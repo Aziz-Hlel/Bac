@@ -1,14 +1,9 @@
-package com.tigana.Users.Entity;
+package com.tigana.Users.Model;
 
 import java.sql.Date;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import com.tigana.Enums.RoleEnums;
 import com.tigana.School.Model.School;
@@ -35,18 +30,21 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class User implements UserDetails {
+public class User { // implements UserDetails {
 
     @Id
     @GeneratedValue(generator = "UUID")
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "uuid")
     private UUID id;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String username;
 
-    @Column(nullable = false)
-    private String password;
+    @Column(nullable = true, unique = true)
+    private String email;
+
+    // @Column(nullable = false)
+    // private String password;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -63,19 +61,20 @@ public class User implements UserDetails {
     @CreationTimestamp
     private Date updatedAt;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("ROLE_" + getRole().name()));
-    }
+    // @Override
+    // public Collection<? extends GrantedAuthority> getAuthorities() {
+    // return Collections.singleton(new SimpleGrantedAuthority("ROLE_" +
+    // getRole().name()));
+    // }
 
-    @Override
-    public String getPassword() {
-        return password;
-    }
+    // @Override
+    // public String getPassword() {
+    // return "password"; // ! Removed password field to integrate firebase auth
+    // }
 
-    @Override
-    public String getUsername() {
-        return username;
-    }
+    // @Override
+    // public String getUsername() {
+    // return username;
+    // }
 
 }

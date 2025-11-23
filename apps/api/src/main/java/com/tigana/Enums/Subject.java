@@ -1,6 +1,6 @@
 package com.tigana.Enums;
 
-public enum SubjectEnums {
+public enum Subject {
 
     MATH(SubjectType.REQUIRED),
     SCIENCE(SubjectType.REQUIRED),
@@ -18,7 +18,7 @@ public enum SubjectEnums {
 
     private final SubjectType type;
 
-    SubjectEnums(SubjectType type) {
+    Subject(SubjectType type) {
         this.type = type;
     }
 

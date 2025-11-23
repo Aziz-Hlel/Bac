@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import com.tigana.Users.DTO.UserRequest;
-import com.tigana.Users.Entity.User;
+import com.tigana.Users.Model.User;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {

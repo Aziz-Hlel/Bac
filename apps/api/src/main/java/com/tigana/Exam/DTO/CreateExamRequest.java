@@ -22,7 +22,7 @@ public class CreateExamRequest {
     private final MajorEnums major;
 
     @NotNull
-    private final SessionEnums seesion;
+    private final SessionEnums session;
 
     @NotNull
     private final float duration;

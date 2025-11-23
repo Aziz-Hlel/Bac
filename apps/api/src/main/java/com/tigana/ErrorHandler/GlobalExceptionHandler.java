@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.tigana.ErrorHandler.Exceptions.ForbiddenAccessException;
@@ -23,7 +24,6 @@ import lombok.extern.slf4j.Slf4j;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
-
 
         // Handle Forbidden exceptions
         @ExceptionHandler(ForbiddenAccessException.class)
@@ -47,6 +47,13 @@ public class GlobalExceptionHandler {
         public ResponseEntity<ErrorResponse> handleNoHandlerFound(NoHandlerFoundException ex,
                         HttpServletRequest request) {
                 return buildErrorResponse("API endpoint not found: " + ex.getRequestURL(), null, HttpStatus.NOT_FOUND,
+                                request);
+        }
+
+        @ExceptionHandler(NoResourceFoundException.class)
+        public ResponseEntity<ErrorResponse> handleNoResourceFound(NoResourceFoundException ex,
+                        HttpServletRequest request) {
+                return buildErrorResponse("API endpoint not found", null, HttpStatus.NOT_FOUND,
                                 request);
         }
 

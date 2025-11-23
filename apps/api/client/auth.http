@@ -1,0 +1,15 @@
+
+@baseUrl = http://localhost:8080/api
+
+
+
+############################
+### Register a new user
+# @name register
+POST {{baseUrl}}/users/register
+Content-Type: application/json
+
+{
+    "tokenId": "sqd645qds4685sdf"
+}
+

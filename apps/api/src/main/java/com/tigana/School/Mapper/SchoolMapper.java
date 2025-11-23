@@ -7,7 +7,7 @@ import org.mapstruct.MappingTarget;
 import com.tigana.School.DTO.SchoolRequest;
 import com.tigana.School.DTO.SchoolResponse;
 import com.tigana.School.Model.School;
-import com.tigana.Users.Entity.User;
+import com.tigana.Users.Model.User;
 
 
 @Mapper(componentModel = "spring")

@@ -4,5 +4,6 @@
         "aaron-bond.better-comments", // * Better Comments
         "bradlc.vscode-tailwindcss", // * Tailwind CSS
         "stivo.tailwind-fold", // * Tailwind Fold
+        "humao.rest-client", // * REST Client
     ],
 }

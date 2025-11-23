@@ -5,7 +5,7 @@ import java.util.UUID;
 import com.tigana.Enums.PrefixEnum;
 import com.tigana.Enums.SubjectEnums;
 import com.tigana.School.Model.School;
-import com.tigana.Users.Entity.User;
+import com.tigana.Users.Model.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

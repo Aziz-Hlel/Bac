@@ -13,7 +13,7 @@ import com.tigana.School.DTO.SchoolResponse;
 import com.tigana.School.Mapper.SchoolMapper;
 import com.tigana.School.Model.School;
 import com.tigana.School.Repo.SchoolRepo;
-import com.tigana.Users.Entity.User;
+import com.tigana.Users.Model.User;
 import com.tigana.Users.Repositry.UsersRepo;
 
 import lombok.AllArgsConstructor;

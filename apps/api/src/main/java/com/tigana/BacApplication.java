@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @SpringBootApplication
 @RestController()
-@RequestMapping("/api/")
+@RequestMapping("/")
 public class BacApplication {
 
 	public static void main(String[] args) {

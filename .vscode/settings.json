@@ -34,4 +34,5 @@
         },
         "editor.suggest.insertMode": "replace"
     },
+    "java.configuration.updateBuildConfiguration": "interactive",
 }

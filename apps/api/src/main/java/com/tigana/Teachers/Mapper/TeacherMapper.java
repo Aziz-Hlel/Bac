@@ -8,7 +8,7 @@ import com.tigana.School.Model.School;
 import com.tigana.Teachers.DTO.TeacherRequest;
 import com.tigana.Teachers.DTO.TeacherResponse;
 import com.tigana.Teachers.Model.Teacher;
-import com.tigana.Users.Entity.User;
+import com.tigana.Users.Model.User;
 
 @Mapper(componentModel = "spring")
 public interface TeacherMapper {

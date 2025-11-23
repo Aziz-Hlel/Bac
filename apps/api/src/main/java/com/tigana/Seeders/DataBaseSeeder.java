@@ -8,7 +8,7 @@ import com.tigana.Enums.CityEnums;
 import com.tigana.Enums.RoleEnums;
 import com.tigana.School.Model.School;
 import com.tigana.School.Repo.SchoolRepo;
-import com.tigana.Users.Entity.User;
+import com.tigana.Users.Model.User;
 import com.tigana.Users.Repositry.UsersRepo;
 import com.tigana.Utils.AppConstants;
 import com.tigana.Utils.AppProperties;
@@ -33,7 +33,7 @@ public class DataBaseSeeder implements CommandLineRunner {
 
                 User superAdminEntity = User.builder()
                                 .username("superadmin")
-                                .password("superadmin")
+                                // .password("superadmin")
                                 .school(null)
                                 .role(RoleEnums.SUPER_ADMIN)
                                 .build();
@@ -42,7 +42,7 @@ public class DataBaseSeeder implements CommandLineRunner {
 
                 User adminEntity = User.builder()
                                 .username("admin")
-                                .password("admin")
+                                // .password("admin")
                                 .role(RoleEnums.ADMIN)
                                 .build();
 

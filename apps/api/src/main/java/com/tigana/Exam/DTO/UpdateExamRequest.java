@@ -20,7 +20,7 @@ public class UpdateExamRequest {
     private final MajorEnums major;
 
     @NonNull
-    private final SessionEnums seesion;
+    private final SessionEnums session;
 
     @NonNull
     private final float duration;
