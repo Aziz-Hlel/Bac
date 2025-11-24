@@ -32,7 +32,7 @@ public class TeacherController {
 
     @PostMapping({ "", "/" })
     public ResponseEntity<UUID> create(@RequestBody @Valid TeacherRequest teacherRequest) {
-        UUID userId = UserContext.getCurrentUserId();
+        String userId = UserContext.getCurrentUserId();
         UUID teacherId = teacherService.createTeacher(teacherRequest, userId);
         return ResponseEntity.status(HttpStatus.CREATED).body(teacherId);
     }
@@ -41,7 +41,7 @@ public class TeacherController {
     public ResponseEntity<TeacherResponse> put(@PathVariable String teacherId,
             @RequestBody @Valid TeacherRequest teacherRequest) {
 
-        UUID UserId = UserContext.getCurrentUserId();
+        String UserId = UserContext.getCurrentUserId();
 
         TeacherResponse updatedEntity = teacherService.updateTeacher(teacherRequest, UUID.fromString(teacherId),
                 UserId);
@@ -52,7 +52,7 @@ public class TeacherController {
     @GetMapping("/{teacherId}")
     public ResponseEntity<TeacherResponse> get(@PathVariable UUID teacherId) {
 
-        UUID UserId = UserContext.getCurrentUserId();
+        String UserId = UserContext.getCurrentUserId();
 
         TeacherResponse entity = teacherService.getTeacher(teacherId, UserId);
 

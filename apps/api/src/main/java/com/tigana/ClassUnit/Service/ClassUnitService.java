@@ -28,8 +28,7 @@ public class ClassUnitService {
 
     private final SchoolService schoolService;
 
-    ClassUnit toEntity(ClassUnitRequest request, UUID userId, UUID schoolId) {
-
+    ClassUnit toEntity(ClassUnitRequest request, String userId, UUID schoolId) {
 
         School school = schoolService.getSchoolEntity(schoolId, userId);
 
@@ -41,7 +40,7 @@ public class ClassUnitService {
         return entity;
     }
 
-    public void createClassUnit(ClassUnitRequest request, UUID userId, UUID schoolId) {
+    public void createClassUnit(ClassUnitRequest request, String userId, UUID schoolId) {
 
         ClassUnit entity = toEntity(request, userId, schoolId);
 
@@ -60,7 +59,7 @@ public class ClassUnitService {
 
     }
 
-    public void bulkUpdateClassUnitByMajorsAndTerms(BulkUpdateClassUnit request, UUID userId, UUID schoolId) {
+    public void bulkUpdateClassUnitByMajorsAndTerms(BulkUpdateClassUnit request, String userId, UUID schoolId) {
         // ? lazy implementation
         List<ClassUnit> classUnits = request.getClassUnits().stream()
                 .map(classUnitRequest -> toEntity(classUnitRequest, userId, schoolId)).toList();
@@ -68,7 +67,7 @@ public class ClassUnitService {
         classUnitRepo.saveAll(classUnits);
     };
 
-    public ClassUnitResponse getClassUnit(UUID classUnitId, UUID userId) {
+    public ClassUnitResponse getClassUnit(UUID classUnitId, String userId) {
         // maybe add a condition to check if user ows the classUnit before gettin it
 
         ClassUnit classUnit = classUnitRepo.findById(classUnitId)
@@ -79,7 +78,7 @@ public class ClassUnitService {
         return response;
     }
 
-    public List<ClassUnitResponse> bulkGetClassUnit(UUID schoolId, UUID userId) {
+    public List<ClassUnitResponse> bulkGetClassUnit(UUID schoolId, String userId) {
 
         School school = schoolService.getSchoolEntity(schoolId, userId);
 
@@ -90,6 +89,5 @@ public class ClassUnitService {
         return response;
 
     };
-
 
 }

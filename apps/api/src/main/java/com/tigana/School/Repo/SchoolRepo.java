@@ -9,9 +9,8 @@ import com.tigana.School.Model.School;
 
 public interface SchoolRepo extends JpaRepository<School, UUID> {
 
-
     Optional<School> findByPublicId(String publicId);
-    
-    Optional<School> findByUserIdAndPublicId(UUID userId, String publicId);
+
+    Optional<School> findByUserIdAndPublicId(String userId, String publicId);
 
 }

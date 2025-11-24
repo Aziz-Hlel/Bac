@@ -34,7 +34,7 @@ public class ClassUnitController {
     public ResponseEntity<Boolean> create(@RequestBody @Valid ClassUnitRequest request) {
 
         UUID schoolId = AppConstants.schoolId;
-        UUID userId = AppConstants.userId;
+        String userId = AppConstants.userId;
 
         classUnitService.createClassUnit(request, userId, schoolId);
 
@@ -46,7 +46,7 @@ public class ClassUnitController {
     public ResponseEntity<Boolean> put(@PathVariable UUID id, @RequestBody @Valid ClassUnitRequest request) {
 
         UUID schoolId = AppConstants.schoolId;
-        UUID userId = AppConstants.userId;
+        String userId = AppConstants.userId;
 
         classUnitService.createClassUnit(request, userId, schoolId);
 
@@ -58,7 +58,7 @@ public class ClassUnitController {
     public ResponseEntity<Boolean> putMethodName(@RequestBody @Valid BulkUpdateClassUnit request) {
 
         UUID schoolId = AppConstants.schoolId;
-        UUID userId = AppConstants.userId;
+        String userId = AppConstants.userId;
 
         classUnitService.bulkUpdateClassUnitByMajorsAndTerms(request, userId, schoolId);
 
@@ -69,7 +69,7 @@ public class ClassUnitController {
     @GetMapping("/{classUnitId}")
     public ResponseEntity<ClassUnitResponse> get(@PathVariable UUID classUnitId) {
 
-        UUID userId = AppConstants.userId;
+        String userId = AppConstants.userId;
         ClassUnitResponse response = classUnitService.getClassUnit(classUnitId, userId);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -78,9 +78,9 @@ public class ClassUnitController {
     @GetMapping({ "", "/" })
     public ResponseEntity<List<ClassUnitResponse>> get() {
 
-        UUID userId = AppConstants.userId;
+        String userId = AppConstants.userId;
         UUID schoolId = AppConstants.schoolId;
-        List<ClassUnitResponse> response = classUnitService.bulkGetClassUnit(schoolId,userId);
+        List<ClassUnitResponse> response = classUnitService.bulkGetClassUnit(schoolId, userId);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     };

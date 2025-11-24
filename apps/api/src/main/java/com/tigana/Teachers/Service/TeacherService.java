@@ -29,7 +29,7 @@ public class TeacherService {
     private final TeacherRepo teacherRepo;
     private final TeacherMapper teacherMapper;
 
-    public UUID createTeacher(TeacherRequest teacherRequest, UUID userId) {
+    public UUID createTeacher(TeacherRequest teacherRequest, String userId) {
 
         School school = entityManager.getReference(School.class, teacherRequest.getSchoolId());
         User user = entityManager.getReference(User.class, userId);
@@ -41,7 +41,7 @@ public class TeacherService {
 
     }
 
-    public TeacherResponse updateTeacher(TeacherRequest teacherRequest, UUID teacherId, UUID userId) {
+    public TeacherResponse updateTeacher(TeacherRequest teacherRequest, UUID teacherId, String userId) {
 
         Optional<Teacher> teacher = teacherRepo.findById(teacherId);
 
@@ -58,7 +58,7 @@ public class TeacherService {
         return teacherMapper.toDto(entity);
     }
 
-    public TeacherResponse getTeacher(UUID teacherId, UUID userId) {
+    public TeacherResponse getTeacher(UUID teacherId, String userId) {
 
         Optional<Teacher> teacher = teacherRepo.findById(teacherId);
 

@@ -15,8 +15,8 @@ import lombok.Data;
 @Validated
 public class AppProperties {
 
-    // @NotBlank    
-    private UUID UserId;
+    // @NotBlank
+    private String userId;
 
     @NotBlank
     private String firebaseServiceAccount;

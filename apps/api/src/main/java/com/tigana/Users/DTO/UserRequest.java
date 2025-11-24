@@ -7,13 +7,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data 
-@AllArgsConstructor 
+@Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class UserRequest {
 
-    @NotBlank(message = "Name is required")
-    @Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters")
+    @NotBlank(message = "tokenId is mandatory")
+    @Size(max = 4096, message = "tokenId is too large")
     private String tokenId;
 
 }

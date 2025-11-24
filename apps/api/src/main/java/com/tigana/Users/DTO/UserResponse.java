@@ -1,5 +1,7 @@
 package com.tigana.Users.DTO;
 
-public record UserResponse() {
+import com.tigana.Enums.RoleEnums;
+
+public record UserResponse(String id, String email, String username, RoleEnums role, String schoolId) {
 
 }

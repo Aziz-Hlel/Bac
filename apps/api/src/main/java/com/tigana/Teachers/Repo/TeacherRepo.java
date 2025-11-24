@@ -14,8 +14,9 @@ import com.tigana.Teachers.Model.Teacher;
 public interface TeacherRepo extends JpaRepository<Teacher, UUID> {
 
     @Query("SELECT t FROM Teacher t WHERE t.school.user.id = :userId")
-    List<Teacher> findAllByUserId(@Param("userId") UUID userId);
+    List<Teacher> findAllByUserId(@Param("userId") String userId);
 
-    // List<Teacher> findBySchoolUserId(UUID userId); // * save as the above method , but JPA will automatically generate the query for you  
+    // List<Teacher> findBySchoolUserId(String userId); // * save as the above
+    // method , but JPA will automatically generate the query for you
 
 }

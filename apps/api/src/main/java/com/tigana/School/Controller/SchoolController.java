@@ -34,7 +34,7 @@ public class SchoolController {
     @PostMapping({ "", "/" })
     public ResponseEntity<UUID> create(@Valid @RequestBody SchoolRequest schoolRequest) {
 
-        UUID UserId = UserContext.getCurrentUserId();
+        String UserId = UserContext.getCurrentUserId();
 
         UUID schoolId = schoolService.createSchool(schoolRequest, UserId);
 
@@ -47,7 +47,7 @@ public class SchoolController {
     public ResponseEntity<SchoolResponse> put(@PathVariable UUID schoolId,
             @Valid @RequestBody SchoolRequest schoolRequest) {
 
-        UUID UserId = UserContext.getCurrentUserId();
+        String UserId = UserContext.getCurrentUserId();
 
         SchoolResponse entity = schoolService.updateSchool(schoolRequest, schoolId, UserId);
         return ResponseEntity.ok(entity);
@@ -56,7 +56,7 @@ public class SchoolController {
     @GetMapping("/{schoolId}")
     public ResponseEntity<SchoolResponse> get(@PathVariable UUID schoolId) {
 
-        UUID UserId = UserContext.getCurrentUserId();
+        String UserId = UserContext.getCurrentUserId();
         log.info("schoolId: {}", schoolId);
         SchoolResponse entity = schoolService.getSchool(schoolId, UserId);
 

@@ -12,13 +12,13 @@ import lombok.Data;
 @Data
 public class UserContext {
 
-    private UUID UserId;
+    private String userId;
 
     // Prevent instantiation
     private UserContext() {
     }
 
-    public static UUID getCurrentUserId() {
+    public static String getCurrentUserId() {
         return AppConstants.userId;
     }
 

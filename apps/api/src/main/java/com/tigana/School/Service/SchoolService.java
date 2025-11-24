@@ -27,7 +27,7 @@ public class SchoolService {
   private SchoolMapper schoolMapper;
   private UsersRepo usersRepo;
 
-  public UUID createSchool(SchoolRequest schoolRequest, UUID userId) {
+  public UUID createSchool(SchoolRequest schoolRequest, String userId) {
 
     User user = usersRepo.findById(userId)
         .orElseThrow(() -> new ResourceNotFoundException("User not found"));
@@ -47,7 +47,7 @@ public class SchoolService {
     return entity.getId();
   }
 
-  public SchoolResponse updateSchool(SchoolRequest schoolRequest, UUID schoolId, UUID userId) {
+  public SchoolResponse updateSchool(SchoolRequest schoolRequest, UUID schoolId, String userId) {
 
     School school = schoolRepo.findById(schoolId)
         .orElseThrow(() -> new ResourceNotFoundException("School doesn't exists"));
@@ -63,7 +63,7 @@ public class SchoolService {
 
   }
 
-  public SchoolResponse getSchool(UUID schoolId, UUID userId) {
+  public SchoolResponse getSchool(UUID schoolId, String userId) {
 
     School school = schoolRepo.findById(schoolId)
         .orElseThrow(() -> new ResourceNotFoundException("School doesn't exists"));
@@ -74,7 +74,7 @@ public class SchoolService {
     return schoolMapper.toDto(school);
   }
 
-  public School getSchoolEntity(UUID schoolId, UUID userId) {
+  public School getSchoolEntity(UUID schoolId, String userId) {
     School school = schoolRepo.findById(schoolId)
         .orElseThrow(() -> new ResourceNotFoundException("School doesn't exists"));
 
