@@ -16,7 +16,7 @@ services:
       - ${PROJECT_ROOT}/apps/api/pom.xml:/app/apps/api/pom.xml
       - ${PROJECT_ROOT}/apps/api/target:/app/apps/api/target
       # Maven cache to avoid re-downloading dependencies
-      - maven-cache-dev:/root/.m2
+      - bac-maven-cache-dev:/root/.m2
 
     # restart: unless-stopped
 
@@ -31,7 +31,7 @@ services:
     #   retries: 3
 
   db:
-    image: postgres:latest
+    image: postgres:16
 
     env_file:
       - ${PROJECT_ROOT}/config/.env.dev
@@ -48,10 +48,10 @@ services:
       timeout: 5s
 
     volumes:
-      - db_data_dev:/var/lib/postgresql/data
+      - bac-db-data-dev:/var/lib/postgresql/data
 
 volumes:
-  db_data_dev:
+  bac-db-data-dev:
     driver: local
-  maven-cache-dev:
+  bac-maven-cache-dev:
     driver: local

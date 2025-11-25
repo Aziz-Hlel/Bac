@@ -20,9 +20,9 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 
-COPY ./${APP_PATH}/.mvn/ .mvn/
-COPY ./${APP_PATH}/mvnw ./${APP_PATH}/pom.xml ./
-
+# COPY ./${APP_PATH}/.mvn/ .mvn/
+# COPY ./${APP_PATH}/mvnw  ./
+COPY ./${APP_PATH}/pom.xml  ./
 
 # Download dependencies separately to leverage Docker layer caching
 # This is a critical optimization - dependencies change less frequently than code
