@@ -7,9 +7,8 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 @Configuration
 public class PropertyConfig {
 
-    @Bean 	// Force Spring to resolve placeholders for @ConfigurationProperties
-
-    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+    @Bean // Force Spring to resolve placeholders for @ConfigurationProperties
+    static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();
     }
 }
