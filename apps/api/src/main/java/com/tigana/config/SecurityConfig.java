@@ -1,4 +1,4 @@
-package com.tigana.config;
+package com.tigana.Config;
 
 import java.util.List;
 
@@ -9,20 +9,28 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import lombok.RequiredArgsConstructor;
+
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final FirebaseAuthFilter firebaseAuthFilter;
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((authz) -> authz.anyRequest().permitAll())
+                .addFilterBefore(firebaseAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .cors(withDefaults());
         return http.build();
     }

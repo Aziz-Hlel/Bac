@@ -25,7 +25,7 @@ public class FirebaseConfig {
         try {
             if (FirebaseApp.getApps().isEmpty()) {
 
-                String json = appProperties.getFirebaseServiceAccount();
+                String json = appProperties.firebaseServiceAccount();
                 var inputStream = new ByteArrayInputStream(json.getBytes());
                 // var inputStream = json.getBytes();
                 // FileInputStream serviceAccount = new FileInputStream();

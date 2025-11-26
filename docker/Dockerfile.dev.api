@@ -1,46 +1,31 @@
-# Use Eclipse Temurin - it's the industry standard for production Spring apps
-# OpenJDK 21 is the current LTS version most enterprises are adopting
 FROM eclipse-temurin:21-jdk AS development
 
 WORKDIR /app
 
-
+# Optional shared folder
 COPY ./shared/ ./shared/
 
 ARG APP_PATH=apps/api
 
-
-# Set working directory
 WORKDIR /app/${APP_PATH}
 
+# Copy Maven Wrapper (required)
+COPY ./${APP_PATH}/mvnw ./
+COPY ./${APP_PATH}/.mvn ./.mvn
 
-# Install Maven 
-RUN apt-get update && \
-    apt-get install -y maven && \
-    rm -rf /var/lib/apt/lists/*
+# Ensure wrapper is executable
+RUN chmod +x mvnw
 
+# Copy only pom.xml first for dependency layer caching
+COPY ./${APP_PATH}/pom.xml ./
 
-# COPY ./${APP_PATH}/.mvn/ .mvn/
-# COPY ./${APP_PATH}/mvnw  ./
-COPY ./${APP_PATH}/pom.xml  ./
+# Download dependencies
+RUN ./mvnw dependency:go-offline -B
 
-# Download dependencies separately to leverage Docker layer caching
-# This is a critical optimization - dependencies change less frequently than code
-RUN chmod +x mvnw && ./mvnw dependency:go-offline -B || true
-
-
-
-# Copy source code
+# Now copy the full source
 COPY ./${APP_PATH}/src ./src
 
-
-
-
-# Development mode with Spring Boot DevTools hot reload
-# Key flags explained:
-# -Dspring.devtools.restart.enabled=true: Enables automatic restart
-# -Dspring-boot.run.jvmArguments: JVM debug configuration
-# -agentlib:jdwp: Java Debug Wire Protocol for IDE attachment
+# Run in dev mode
 CMD ["./mvnw", "spring-boot:run", \
      "-Dspring-boot.run.jvmArguments=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005", \
      "-Dspring.devtools.restart.enabled=true"]

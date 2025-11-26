@@ -1,7 +1,6 @@
 package com.tigana.Users.Model;
 
 import java.sql.Date;
-import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -14,7 +13,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -36,17 +34,20 @@ public class User { // implements UserDetails {
     @Column(name = "id", nullable = false, unique = true)
     private String id;
 
-    @Column(nullable = true)
+    @Column(name = "username", nullable = true)
     private String username;
 
-    @Column(nullable = true, unique = true)
+    @Column(name = "email", nullable = true, unique = true)
     private String email;
+
+    @Column(name = "sign_in_provider", nullable = true)
+    private String signInProvider;
 
     // @Column(nullable = false)
     // private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "role", nullable = false)
     private RoleEnums role;
 
     @OneToOne(fetch = FetchType.LAZY, optional = true, cascade = CascadeType.ALL) // added cascade = CascadeType.ALL for
@@ -55,9 +56,11 @@ public class User { // implements UserDetails {
     private School school;
 
     @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;
 
     @CreationTimestamp
+    @Column(name = "updated_at", nullable = false)
     private Date updatedAt;
 
     // @Override

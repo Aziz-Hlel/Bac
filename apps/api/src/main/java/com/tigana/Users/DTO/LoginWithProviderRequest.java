@@ -1,5 +1,6 @@
 package com.tigana.Users.DTO;
 
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRequest {
+public class LoginWithProviderRequest {
 
     @NotBlank(message = "idToken is mandatory")
     @Size(max = 4096, message = "idToken is too large")

@@ -13,3 +13,17 @@ Content-Type: application/json
     "tokenId": "sqd645qds4685sdf"
 }
 
+
+
+
+
+
+
+
+
+
+
+############################
+# @name test-connection
+GET {{baseUrl}}/health
+Content-Type: application/json

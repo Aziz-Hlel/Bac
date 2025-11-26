@@ -9,7 +9,7 @@ import com.tigana.School.Service.SchoolService;
 import com.tigana.Utils.UserContext;
 
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.UUID;
@@ -24,12 +24,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("/school")
-@AllArgsConstructor
-@Slf4j
-
+@RequiredArgsConstructor
+@Slf4j 
 public class SchoolController {
 
-    private SchoolService schoolService;
+    private final SchoolService schoolService;
 
     @PostMapping({ "", "/" })
     public ResponseEntity<UUID> create(@Valid @RequestBody SchoolRequest schoolRequest) {

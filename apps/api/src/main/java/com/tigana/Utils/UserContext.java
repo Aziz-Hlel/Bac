@@ -1,25 +1,26 @@
 package com.tigana.Utils;
 
-import java.util.UUID;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import com.google.firebase.auth.FirebaseToken;
 
 import lombok.Data;
 
-@Component
-@ConfigurationProperties(prefix = "app") // to help retreive values from application.yml under app attribute
 @Data
 public class UserContext {
 
-    private String userId;
+    private UserContext() {} // utility class, cannot inject beans here
 
-    // Prevent instantiation
-    private UserContext() {
+    public static FirebaseToken getCurrentUserDetails() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof FirebaseToken token) {
+            return token;
+        }
+        throw new IllegalStateException("No authenticated user found or wrong principal type");
     }
 
     public static String getCurrentUserId() {
-        return AppConstants.userId;
+        return getCurrentUserDetails().getUid();
     }
-
 }
