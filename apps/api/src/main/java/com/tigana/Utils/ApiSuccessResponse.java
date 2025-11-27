@@ -1,48 +1,40 @@
 package com.tigana.Utils;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
-import org.springframework.http.HttpStatus;
+import org.apache.http.HttpStatus;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
-
+import lombok.RequiredArgsConstructor;
 
 @Data
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
-public class ApiResponse<T> {
+public class ApiSuccessResponse<T> {
 
     protected final boolean success = true;
 
     @NonNull
-    @NotBlank
     protected String message;
 
     @NonNull
-    @NotBlank
     protected T data;
 
+    @NonNull
     protected final LocalDateTime timestamp = LocalDateTime.now();
 
-    @NonNull
-    @NotBlank
     protected String path;
 
     @NonNull
-    @NotBlank
     protected HttpStatus status;
 
-    @JsonInclude(JsonInclude.Include.NON_EMPTY) // Forgetting null safety: Not using @JsonInclude properly, sending
-                                                // unnecessary null fields
     protected Map<String, Object> metadata;
 
 }

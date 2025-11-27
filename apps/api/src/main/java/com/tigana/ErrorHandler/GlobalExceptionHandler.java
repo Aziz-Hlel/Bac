@@ -1,6 +1,5 @@
 package com.tigana.ErrorHandler;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -106,10 +105,9 @@ public class GlobalExceptionHandler {
                 ErrorResponse response = ErrorResponse.builder()
                                 .message(message)
                                 .path(request.getRequestURI())
-                                .method(request.getMethod())
-                                .status(status.value())
-                                .timestamp(LocalDateTime.now())
-                                .errors(errors).build();
+                                .errors(errors)
+                                .status(status)
+                                .build();
 
                 return ResponseEntity.status(status).body(response);
         }

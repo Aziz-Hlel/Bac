@@ -30,11 +30,12 @@ public class BacApplication {
 
 	@GetMapping("/health")
 	public ResponseEntity<ApiResponse<String>> healthCheck() {
+
+		ApiResponse<String> response = new ApiResponse<>();
+		response.setMessage("API is healthy");
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(ApiResponse.<String>builder()
-						.success(true)
-						.message("API is healthy")
-						.data("OK")
+						.message(null)
 						.status(HttpStatus.OK)
 						.build());
 	};

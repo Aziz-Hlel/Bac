@@ -3,6 +3,7 @@ package com.tigana.Teachers.Mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 
 import com.tigana.School.Model.School;
 import com.tigana.Teachers.DTO.TeacherRequest;
@@ -10,7 +11,7 @@ import com.tigana.Teachers.DTO.TeacherResponse;
 import com.tigana.Teachers.Model.Teacher;
 import com.tigana.Users.Model.User;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface TeacherMapper {
 
     @Mapping(target = "id", ignore = true)
@@ -25,5 +26,5 @@ public interface TeacherMapper {
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "school", ignore = true)
-    Teacher toUpdatedEntity(TeacherRequest teacherRequest,@MappingTarget Teacher teacher);
+    Teacher toUpdatedEntity(TeacherRequest teacherRequest, @MappingTarget Teacher teacher);
 }

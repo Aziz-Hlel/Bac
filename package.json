@@ -6,6 +6,7 @@
     "prepare": "husky",
     "format:fix": "prettier --write .",
     "dev": "node scripts/docker-up.js dev",
+    "generate:api": "node scripts/generate-api.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "lint-staged": {
@@ -24,6 +25,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.2.6",
     "prettier": "^3.6.2",
-    "prettier-plugin-sql": "^0.19.2"
+    "prettier-plugin-sql": "^0.19.2",
+    "openapi-typescript-codegen": "^0.29.0"
   }
 }

@@ -5,13 +5,14 @@ import java.util.UUID;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
 import com.tigana.SchoolMajors.DTO.SchoolMajorsRequest;
 import com.tigana.SchoolMajors.DTO.SchoolMajorsResponse;
 import com.tigana.SchoolMajors.Model.SchoolMajors;
 import com.tigana.SchoolMajors.Model.SchoolMajorsId;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface SchoolMajorsMapper {
 
     @Mapping(target = "schoolMajorsId", expression = "java(toEmbeddedId(schoolMajorsRequest, schoolId))")

@@ -3,23 +3,10 @@ app: # like .env retreived in AppProperties
   schoolId: 44d5d438-7afd-4595-be8e-294a08532138
   firebaseServiceAccount: ${FIREBASE_SERVICE_ACCOUNT:}
 
-# !none of this shit below works btw to ensure env variable exits
-spring:
-  config:
-    on-not-found: fail  # Fail startup if config cannot be resolved
-    import: optional:file:.env[.properties]
-    
-# This will make Spring fail if ANY placeholder cannot be resolved
-  main:
-    allow-bean-definition-overriding: false
-    show-environment-info: true
-
-  cloud:
-    fail-fast: true
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
       format_sql: true
 
 
