@@ -1,0 +1,13 @@
+@apiKey = {"apiKey":"AIzaSyDWKplAl5Vp43pG0j5j3vnThRJIPwv1E44","authDomain":"uber-588cf.firebaseapp.com","projectId":"uber-588cf","storageBucket":"uber-588cf.firebasestorage.app","messagingSenderId":"371351638566","appId":"1:371351638566:web:16c040ae9fb03d5382cce7","measurementId":"G-DH71YEDZKQ"}
+@baseUrl = https://identitytoolkit.googleapis.com/v1
+
+# Create user (email/password)
+POST {{baseUrl}}/accounts:signUp?key={{apiKey}}
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "yourStrongPassword",
+  "returnSecureToken": true
+}
+

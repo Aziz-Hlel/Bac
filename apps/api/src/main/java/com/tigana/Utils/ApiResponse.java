@@ -7,13 +7,11 @@ import org.springframework.http.HttpStatus;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-
+import javax.annotation.Nonnull;
 
 @Data
 @Builder
@@ -23,22 +21,18 @@ public class ApiResponse<T> {
 
     protected final boolean success = true;
 
-    @NonNull
-    @NotBlank
+    @Nonnull
     protected String message;
 
-    @NonNull
-    @NotBlank
+    @Nonnull
     protected T data;
 
     protected final LocalDateTime timestamp = LocalDateTime.now();
 
-    @NonNull
-    @NotBlank
+    @Nonnull
     protected String path;
 
-    @NonNull
-    @NotBlank
+    @Nonnull
     protected HttpStatus status;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY) // Forgetting null safety: Not using @JsonInclude properly, sending

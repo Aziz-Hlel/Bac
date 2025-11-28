@@ -10,8 +10,6 @@ import com.tigana.Users.Model.User;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface UserMapper {
 
-
-
     @Mapping(source = "school.id", target = "schoolId")
     UserResponse toDto(User user);
 }

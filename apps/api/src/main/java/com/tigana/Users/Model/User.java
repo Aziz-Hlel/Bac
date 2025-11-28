@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class User { // implements UserDetails {
+public class User {
 
     @Id
     @Column(name = "id", nullable = false, unique = true)

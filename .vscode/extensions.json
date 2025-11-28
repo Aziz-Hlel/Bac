@@ -5,5 +5,7 @@
         "bradlc.vscode-tailwindcss", // * Tailwind CSS
         "stivo.tailwind-fold", // * Tailwind Fold
         "humao.rest-client", // * REST Client
+        "usernamehw.errorlens", // * Error Lens
+        // "dbaeumer.vscode-eslint", // * ESLint
     ],
 }

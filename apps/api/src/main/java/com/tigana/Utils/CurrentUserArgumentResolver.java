@@ -32,15 +32,17 @@ public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolve
             NativeWebRequest webRequest,
             WebDataBinderFactory binderFactory) throws Exception {
 
-        HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
-        String authHeader = request.getHeader("Authorization");
+        return UserContext.getCurrentUserDetails();
 
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            throw new RuntimeException("Missing Authorization header");
-        }
-        String idToken = authHeader.substring(7);
-        // Verify the token
-        return firebaseAuthService.verifyIdToken(idToken);
+        // HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
+        // String authHeader = request.getHeader("Authorization");
+
+        // if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        //     throw new RuntimeException("Missing Authorization header");
+        // }
+        // String idToken = authHeader.substring(7);
+        // // Verify the token
+        // return firebaseAuthService.verifyIdToken(idToken);
     }
 
 }
