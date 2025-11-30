@@ -1,8 +1,10 @@
 package com.tigana.Users.Model;
 
 import java.sql.Date;
+import java.time.Instant;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.tigana.Enums.RoleEnums;
 import com.tigana.School.Model.School;
@@ -13,24 +15,29 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false, unique = true)
     private String id;
 
@@ -57,26 +64,9 @@ public class User {
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
-    private Date createdAt;
+    private Instant createdAt;
 
-    @CreationTimestamp
+    @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
-    private Date updatedAt;
-
-    // @Override
-    // public Collection<? extends GrantedAuthority> getAuthorities() {
-    // return Collections.singleton(new SimpleGrantedAuthority("ROLE_" +
-    // getRole().name()));
-    // }
-
-    // @Override
-    // public String getPassword() {
-    // return "password"; // ! Removed password field to integrate firebase auth
-    // }
-
-    // @Override
-    // public String getUsername() {
-    // return username;
-    // }
-
+    private Instant updatedAt;
 }

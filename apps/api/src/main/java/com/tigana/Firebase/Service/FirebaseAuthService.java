@@ -47,6 +47,23 @@ public class FirebaseAuthService {
         return firebaseAuth.getUser(uid);
     }
 
+    public UserRecord getUserByEmail(String email) {
+        try {
+            return firebaseAuth.getUserByEmail(email);
+
+        } catch (FirebaseAuthException e) {
+            return null;
+        }
+    }
+
+    public void createUser(String email, String password) throws FirebaseAuthException {
+        UserRecord.CreateRequest request = new UserRecord.CreateRequest()
+                .setEmail(email)
+                .setPassword(password);
+
+        firebaseAuth.createUser(request);
+    }
+
     public void deleteAllUsers() {
         try {
             ListUsersPage page = firebaseAuth.listUsers(null);

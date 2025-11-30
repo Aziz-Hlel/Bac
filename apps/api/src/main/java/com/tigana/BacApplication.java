@@ -35,7 +35,7 @@ public class BacApplication {
 		response.setMessage("API is healthy");
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(ApiResponse.<String>builder()
-						.message(null)
+						.message("API is healthy")
 						.status(HttpStatus.OK)
 						.build());
 	};
