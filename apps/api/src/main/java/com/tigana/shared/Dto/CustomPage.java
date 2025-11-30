@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-public record CustomPage<T>(List<T> content, CustomPageable pageable) {
+public record CustomPage<T>(List<T> content, CustomPageable pagination) {
 
     public static <T> CustomPage<T> from(Page<T> page) {
         return new CustomPage<>(

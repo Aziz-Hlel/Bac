@@ -1,6 +1,5 @@
 package com.tigana.Users.Model;
 
-import java.sql.Date;
 import java.time.Instant;
 
 import org.hibernate.annotations.CreationTimestamp;

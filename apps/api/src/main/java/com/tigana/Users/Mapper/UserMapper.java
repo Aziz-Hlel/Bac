@@ -3,7 +3,6 @@ package com.tigana.Users.Mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
-import org.springframework.data.domain.Page;
 
 import com.google.firebase.auth.FirebaseToken;
 import com.tigana.Users.DTO.UserProfileResponse;
