@@ -3,9 +3,9 @@ package com.tigana.Seeders;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.tigana.Enums.RoleEnums;
 import com.tigana.Users.Model.User;
@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Transactional
 @RequiredArgsConstructor
 @Component
 public class SeedUser {
@@ -29,7 +28,7 @@ public class SeedUser {
 
             String seedEmail = "user" + i + "@example.com";
             String seedUsername = "user" + i;
-            String seedId = "user" + i;
+            String seedId = UUID.randomUUID().toString();
             User user = User.builder()
                     .id(seedId)
                     .email(seedEmail)

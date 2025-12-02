@@ -4,6 +4,7 @@ import java.time.Instant;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.Version;
 
 import com.tigana.Enums.RoleEnums;
 import com.tigana.School.Model.School;
@@ -36,7 +37,8 @@ import lombok.Setter;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    // @GeneratedValue(strategy = GenerationType.UUID)
+    @Version // Without this you will continue having random stale object errors as you scale (since you re not using a generated id)
     @Column(name = "id", nullable = false, unique = true)
     private String id;
 

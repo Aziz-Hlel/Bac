@@ -8,10 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+@Transactional
 @Component
 @RequiredArgsConstructor
 @Slf4j
-@Transactional
 @Profile("dev")
 public class DataBaseSeeder implements CommandLineRunner {
 
@@ -23,10 +23,9 @@ public class DataBaseSeeder implements CommandLineRunner {
 
                 log.info("Seeding database...");
 
-
                 prodSeeder.seed();
                 seedUser.seed();
- 
+
         }
 
 }
