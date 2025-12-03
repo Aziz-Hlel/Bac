@@ -53,11 +53,11 @@ public class AuthController {
         }
 
         @PostMapping("/login")
-        public ResponseEntity<ApiResponse<UserProfileResponse>> login(@Valid @RequestBody UserRequest userRequest) {
+        public ResponseEntity<ApiResponse<UserProfileResponse>> loginWithPassword(@Valid @RequestBody UserRequest userRequest) {
 
                 FirebaseToken firebaseToken = firebaseService.verifyIdToken(userRequest.getIdToken());
 
-                var userResponse = usersService.login(firebaseToken);
+                var userResponse = usersService.loginWithPassword(firebaseToken);
 
                 return ResponseEntity.status(HttpStatus.OK)
                                 .body(ApiResponse.<UserProfileResponse>builder()

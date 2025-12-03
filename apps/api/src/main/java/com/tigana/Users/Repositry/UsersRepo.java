@@ -9,9 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.tigana.Users.Model.User;
 
 @Repository
-public interface UsersRepo extends
-        JpaRepository<User, String>,
-        JpaSpecificationExecutor<User> {
+public interface UsersRepo extends JpaRepository<User, String>, JpaSpecificationExecutor<User> {
 
     Optional<User> findByEmail(String email);
 

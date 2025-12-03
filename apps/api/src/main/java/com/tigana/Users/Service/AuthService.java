@@ -58,7 +58,7 @@ public class AuthService {
         return userResponse;
     }
 
-    public UserProfileResponse login(FirebaseToken firebaseToken) {
+    public UserProfileResponse loginWithPassword(FirebaseToken firebaseToken) {
 
         String userEmail = firebaseToken.getEmail();
         User user = usersRepo.findByEmail(userEmail)

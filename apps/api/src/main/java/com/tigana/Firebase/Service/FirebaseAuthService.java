@@ -57,7 +57,7 @@ public class FirebaseAuthService {
     }
 
     public void createUser(String email, String password) throws FirebaseAuthException {
-        UserRecord.CreateRequest request = new UserRecord.CreateRequest()
+        var request = new UserRecord.CreateRequest()
                 .setEmail(email)
                 .setPassword(password);
 
