@@ -35,7 +35,7 @@ public class AuthController {
         private final FirebaseAuthService firebaseService;
 
         @PostMapping("/register")
-        public ResponseEntity<ApiResponse<UserProfileResponse>> register(@Valid @RequestBody UserRequest userRequest) {
+        public UserProfileResponse register(@Valid @RequestBody UserRequest userRequest) {
 
                 log.info("Creating user with idToken: {}", userRequest.getIdToken());
 
@@ -43,12 +43,13 @@ public class AuthController {
 
                 var userResponse = usersService.createUser(firebaseToken);
 
-                return ResponseEntity.status(HttpStatus.CREATED)
-                                .body(ApiResponse.<UserProfileResponse>builder()
-                                                .message("User created successfully")
-                                                .data(userResponse)
-                                                .status(HttpStatus.CREATED)
-                                                .build());
+                return userResponse;
+                // return ResponseEntity.status(HttpStatus.CREATED)
+                //                 .body(ApiResponse.<UserProfileResponse>builder()
+                //                                 .message("User created successfully")
+                //                                 .data(userResponse)
+                //                                 .status(HttpStatus.CREATED)
+                                                // .build());
 
         }
 
