@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
+
 public record CustomPage<T>(List<T> content, CustomPageable pagination) {
 
     public static <T> CustomPage<T> from(Page<T> page) {
@@ -12,6 +13,8 @@ public record CustomPage<T>(List<T> content, CustomPageable pagination) {
                 new CustomPageable(
                         page.getNumber(),
                         page.getSize(),
+                        page.getPageable().getOffset(),
+                        page.getPageable().getPageSize(),
                         page.getTotalElements(),
                         page.getTotalPages()));
     }

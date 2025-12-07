@@ -15,6 +15,7 @@ import com.tigana.School.Model.School;
 import com.tigana.School.Repo.SchoolRepo;
 import com.tigana.Users.Model.User;
 import com.tigana.Users.Repositry.UsersRepo;
+import com.tigana.Utils.AuthenticationUtils;
 
 import lombok.AllArgsConstructor;
 
@@ -27,16 +28,22 @@ public class SchoolService {
   private SchoolMapper schoolMapper;
   private UsersRepo usersRepo;
 
-  public UUID createSchool(SchoolRequest schoolRequest, String userId) {
+  public UUID createSchool(SchoolRequest schoolRequest) {
+
+    String userId = AuthenticationUtils.getCurrentUserId();
 
     User user = usersRepo.findById(userId)
         .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
-    // ! i think it needs more conditions like even if a user already has a school
+    School userSchool = user.getSchool();
+    if (userSchool != null) {
+      throw new ForbiddenAccessException("User already has a school assigned");
+    }
+
     // it need to throw an erro , or a public id with that same school exist too
-    Optional<School> school = schoolRepo.findByUserIdAndPublicId(user.getId(), schoolRequest.getPublicId());
+    Optional<School> school = schoolRepo.findByPublicId(schoolRequest.getPublicId());
     if (school.isPresent())
-      throw new ResourceNotFoundException("School already exists");
+      throw new ResourceNotFoundException("School with the same public id already exists");
 
     School entity = schoolMapper.toEntity(schoolRequest, user);
     entity = schoolRepo.save(entity);
@@ -47,7 +54,9 @@ public class SchoolService {
     return entity.getId();
   }
 
-  public SchoolResponse updateSchool(SchoolRequest schoolRequest, UUID schoolId, String userId) {
+  public SchoolResponse updateSchool(SchoolRequest schoolRequest, UUID schoolId) {
+
+    String userId = AuthenticationUtils.getCurrentUserId();
 
     School school = schoolRepo.findById(schoolId)
         .orElseThrow(() -> new ResourceNotFoundException("School doesn't exists"));

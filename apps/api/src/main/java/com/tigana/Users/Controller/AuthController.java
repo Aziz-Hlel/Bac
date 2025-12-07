@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.firebase.auth.FirebaseToken;
 import com.tigana.Firebase.Service.FirebaseAuthService;
+import com.tigana.Interfaces.CurrentUser;
 import com.tigana.Users.DTO.LoginWithProviderRequest;
 import com.tigana.Users.DTO.UserRequest;
 import com.tigana.Users.DTO.UserProfileResponse;
 import com.tigana.Users.Service.AuthService;
 import com.tigana.shared.Dto.SimpleApiResponse;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -67,12 +67,8 @@ public class AuthController {
         }
 
         @GetMapping("/me")
-        public UserProfileResponse getCurrentUser(HttpServletRequest request) {
+        public UserProfileResponse getCurrentUser(@CurrentUser FirebaseToken firebaseToken) {
                 log.info("Fetching current user");
-
-                String idToken = request.getHeader("Authorization").substring(7);
-
-                FirebaseToken firebaseToken = firebaseService.verifyIdToken(idToken);
 
                 var userResponse = usersService.getCurrentUser(firebaseToken);
 

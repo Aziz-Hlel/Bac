@@ -2,24 +2,28 @@ import { AppSidebar } from '@/components/Navbar/app-sidebar';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { Outlet } from 'react-router-dom';
 
-const Sidebar = () => {
+const Main = () => {
   return (
-    <SidebarProvider>
-      <AppSidebar />
+    <div className="flex h-screen fixed inset-0 overflow-hidden">
+      <SidebarProvider>
+        <AppSidebar />
 
-      <SidebarInset>
-        {/* <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+        <SidebarInset>
+          {/* <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           <div className="grid auto-rows-min gap-4 md:grid-cols-3">
             <div className="bg-black aspect-video rounded-xl" />
             <div className="bg-black aspect-video rounded-xl" />
             <div className="bg-black aspect-video rounded-xl" />
-          </div>
-          <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" />
+            </div>
+            <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" />
         </div> */}
-        <Outlet />
-      </SidebarInset>
-    </SidebarProvider>
+          <main className="w-full h-screen max-h-screen">
+            <Outlet />
+          </main>
+        </SidebarInset>
+      </SidebarProvider>
+    </div>
   );
 };
 
-export default Sidebar;
+export default Main;

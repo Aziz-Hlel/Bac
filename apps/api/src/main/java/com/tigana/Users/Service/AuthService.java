@@ -16,6 +16,7 @@ import com.tigana.Users.DTO.UserProfileResponse;
 import com.tigana.Users.Mapper.UserMapper;
 import com.tigana.Users.Model.User;
 import com.tigana.Users.Repositry.UsersRepo;
+import com.tigana.Utils.AuthenticationUtils;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -133,7 +134,7 @@ public class AuthService {
     }
 
     public UserProfileResponse getCurrentUser(FirebaseToken firebaseToken) {
-        String userId = firebaseToken.getUid();
+        String userId = AuthenticationUtils.getCurrentUserId();
         logger.info("Getting current user with ID: " + userId);
         User user = usersRepo.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User with id not found."));

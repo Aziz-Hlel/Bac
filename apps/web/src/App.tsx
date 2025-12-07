@@ -9,7 +9,7 @@ import { AuthProvider } from './context/AuthContext';
 import SignIn from './components/SignIn/SignIn';
 import NetworkStatusGuard from './guard/NetworkStatusGuard';
 import { Toaster } from 'sonner';
-import Sidebar from './pages/Sidebar';
+import Main from './pages/Sidebar';
 import { UserSessionProvider } from './context/UserConext';
 import UserPage from './pages/User';
 
@@ -37,7 +37,7 @@ function App() {
 
                 <Route element={<AuthenticatedRoutes />}>
                   <Route element={<UserSessionProvider />}>
-                    <Route element={<Sidebar />}>
+                    <Route element={<Main />}>
                       <Route path="/" element={<Home />} />
                       <Route index path="/profile" element={<Profile />} />
 

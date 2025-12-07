@@ -1,6 +1,8 @@
 package com.tigana.Config;
 
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -37,16 +39,8 @@ public class SecurityConfig {
     private final FirebaseAuthFilter firebaseAuthFilter;
     private final FirebaseAuthenticationEntryPoint firebaseAuthenticationEntryPoint;
 
-    // Centralized public endpoints (no authentication required)
-    private static final String[] PUBLIC_ENDPOINTS = {
-            "/auth/**",
-            "/public/**",
-            "/health",
-            "/actuator/health", // For production health checks
-            "/swagger-ui/**",
-            "/v3/api-docs/**",
-            "/v3/api-docs" // Without trailing slash
-    };
+    @Value("${server.servlet.context-path:}")
+    private String contextPath;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -66,7 +60,7 @@ public class SecurityConfig {
                 // Authorization rules
                 .authorizeHttpRequests(auth -> auth
                         // Public endpoints - no authentication required
-                        .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
+                        .requestMatchers(PublicEndpoints.getPublicEndpointsWithContext()).permitAll()
 
                         // CORS preflight requests
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()

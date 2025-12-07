@@ -16,10 +16,15 @@ const useGetTableData = () => {
     queryFn: async () => await userService.getUsers(queryParams),
   });
 
-  const tableData = data?.success ? data?.data.content : [];
-  const pagination = data?.success
-    ? data?.data.pagination
-    : { size: 0, number: 0, totalElements: 0, totalPages: 0, offset: 0, pageSize: 0 };
+  const tableData = data?.content ?? [];
+  const pagination = data?.pagination ?? {
+    size: 0,
+    number: 0,
+    totalElements: 0,
+    totalPages: 0,
+    offset: 0,
+    pageSize: 0,
+  };
 
   return { tableData, pagination };
 };

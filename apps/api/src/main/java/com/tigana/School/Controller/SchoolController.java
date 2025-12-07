@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RestController
 @RequestMapping("/school")
 @RequiredArgsConstructor
-@Slf4j 
+@Slf4j
 public class SchoolController {
 
     private final SchoolService schoolService;
@@ -33,9 +33,8 @@ public class SchoolController {
     @PostMapping({ "", "/" })
     public ResponseEntity<UUID> create(@Valid @RequestBody SchoolRequest schoolRequest) {
 
-        String UserId = UserContext.getCurrentUserId();
 
-        UUID schoolId = schoolService.createSchool(schoolRequest, UserId);
+        UUID schoolId = schoolService.createSchool(schoolRequest);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -46,9 +45,8 @@ public class SchoolController {
     public ResponseEntity<SchoolResponse> put(@PathVariable UUID schoolId,
             @Valid @RequestBody SchoolRequest schoolRequest) {
 
-        String UserId = UserContext.getCurrentUserId();
 
-        SchoolResponse entity = schoolService.updateSchool(schoolRequest, schoolId, UserId);
+        SchoolResponse entity = schoolService.updateSchool(schoolRequest, schoolId);
         return ResponseEntity.ok(entity);
     }
 
