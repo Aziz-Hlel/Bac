@@ -15,8 +15,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -38,9 +36,17 @@ public class User {
 
     @Id
     // @GeneratedValue(strategy = GenerationType.UUID)
-    @Version // Without this you will continue having random stale object errors as you scale (since you re not using a generated id)
+    @Version // Without this you will continue having random stale object errors as you scale
+             // (since you re not using a generated id)
     @Column(name = "id", nullable = false, unique = true)
     private String id;
+
+    // ? investigate later, given to you by the chat
+    // @Version
+    // @Column(name = "version")
+    // private Long version;
+    // Consider adding a separate version field rather than putting @Version on id —
+    // semantically clearer.
 
     @Column(name = "username", nullable = true)
     private String username;

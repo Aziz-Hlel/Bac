@@ -1,8 +1,22 @@
 services:
+  web:
+    build:
+      context: ${PROJECT_ROOT}
+      dockerfile: ${PROJECT_ROOT}/docker/dev/Dockerfile.dev.web
+    env_file:
+      - ${PROJECT_ROOT}/config/.env.dev
+      - ${PROJECT_ROOT}/.env.local
+      - ${PROJECT_ROOT}/.env
+    ports:
+      - '${VITE_PORT}:${VITE_PORT}'
+    depends_on:
+      api:
+        condition: service_healthy
+
   api:
     build:
-      context: ..
-      dockerfile: ${PROJECT_ROOT}/docker/Dockerfile.dev.api
+      context: ${PROJECT_ROOT}
+      dockerfile: ${PROJECT_ROOT}/docker/dev/Dockerfile.dev.api
     env_file:
       - ${PROJECT_ROOT}/config/.env.dev
       - ${PROJECT_ROOT}/.env.local
@@ -24,11 +38,12 @@ services:
       db:
         condition: service_healthy
 
-    # healthcheck:
-    #   test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 3
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:8080/health']
+      start_period: 10s
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   db:
     image: postgres:16

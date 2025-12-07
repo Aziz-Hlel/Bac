@@ -7,6 +7,8 @@ import com.tigana.Users.Model.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -36,14 +38,14 @@ public class School {
     @Column(nullable = false)
     private String name;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private CityEnums city;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String address;
 
     @OneToOne(mappedBy = "school", fetch = FetchType.LAZY, optional = false)
     private User user;
 
 }
- 

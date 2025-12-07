@@ -2,7 +2,20 @@ CREATE TABLE schools (
     id UUID PRIMARY KEY,
     public_id VARCHAR(30) NOT NULL,
     name VARCHAR(100) NOT NULL,
-    city VARCHAR(20) NOT NULL CONSTRAINT city_check CHECK (city IN ('sousse', 'tunis')),
+    city VARCHAR(20) NOT NULL CONSTRAINT school_city_check CHECK (
+        city IN (
+            'SOUSSE',
+            'TUNIS',
+            'SFAX',
+            'NABEUL',
+            'KAIROUAN',
+            'GABES',
+            'BIZERTE',
+            'JENDOUBA',
+            'BEJA',
+            'MONASTIR'
+        )
+    ),
     address VARCHAR(255) NOT NULL
 );
 
@@ -11,7 +24,7 @@ CREATE TABLE users (
     id UUID PRIMARY KEY,
     email VARCHAR(255) UNIQUE NULL,
     username VARCHAR(255),
-    role VARCHAR(20) NOT NULL CONSTRAINT role_check CHECK (role IN ('ADMIN', 'TEACHER', 'STUDENT')),
+    role VARCHAR(20) NOT NULL CONSTRAINT user_role_check CHECK (role IN ('SUPER_ADMIN', 'ADMIN')),
     is_delete BOOLEAN DEFAULT FALSE,
     -- 
     school_id UUID NULL,
@@ -24,10 +37,10 @@ CREATE TABLE users (
 CREATE TABLE teachers (
     id UUID PRIMARY KEY,
     public_id VARCHAR(30) DEFAULT NULL,
-    prefix VARCHAR(20) DEFAULT NULL CONSTRAINT prefix_check CHECK (prefix IN ('MADAME', 'MISS', 'MR', 'SIR')),
+    prefix VARCHAR(20) DEFAULT NULL CONSTRAINT teacher_prefix_check CHECK (prefix IN ('MADAME', 'MISS', 'MR', 'SIR')),
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
-    subject VARCHAR(100) DEFAULT NULL CONSTRAINT subject_check CHECK (
+    subject VARCHAR(100) DEFAULT NULL CONSTRAINT teacher_subject_check CHECK (
         subject IN (
             'MATH',
             'PHYSICS',
@@ -50,7 +63,7 @@ CREATE TABLE teachers (
 --
 CREATE TABLE exams (
     id UUID PRIMARY KEY,
-    major VARCHAR(100) NULL CONSTRAINT major_check CHECK (
+    major VARCHAR(100) NULL CONSTRAINT exam_major_check CHECK (
         major IN (
             'MATH',
             'SCIENCE',
@@ -61,7 +74,7 @@ CREATE TABLE exams (
             'SPORT'
         )
     ),
-    subject VARCHAR(100) NOT NULL CONSTRAINT subject_check CHECK (
+    subject VARCHAR(100) NOT NULL CONSTRAINT exam_subject_check CHECK (
         subject IN (
             'MATH',
             'PHYSICS',
@@ -73,8 +86,8 @@ CREATE TABLE exams (
             'GEOGRAPHY'
         )
     ),
-    session VARCHAR(20) NOT NULL CONSTRAINT session_check CHECK (session IN ('MORNING', 'EVENING')),
-    term term_enum NOT NULL,
+    session VARCHAR(20) NOT NULL CONSTRAINT exam_session_check CHECK (session IN ('MORNING', 'EVENING')),
+    term VARCHAR(10) NOT NULL CONSTRAINT exam_term_check CHECK (term IN ('PRINCIPAL', 'RETAKE')),
     duration NUMERIC(3, 2) NOT NULL,
     date DATE NOT NULL
 );
@@ -83,7 +96,7 @@ CREATE TABLE exams (
 CREATE TABLE school_majors (
     id UUID PRIMARY KEY,
     school_id UUID NOT NULL,
-    major VARCHAR(100) NOT NULL CONSTRAINT major_check CHECK (
+    major VARCHAR(100) NOT NULL CONSTRAINT school_major_check CHECK (
         major IN (
             'MATH',
             'SCIENCE',
@@ -102,7 +115,7 @@ CREATE TABLE school_majors (
 CREATE TABLE school_optional_subjects (
     id UUID PRIMARY KEY,
     school_id UUID NOT NULL,
-    optional_subject VARCHAR(100) NOT NULL CONSTRAINT optional_subject_check CHECK (
+    optional_subject VARCHAR(100) NOT NULL CONSTRAINT school_optional_subject_check CHECK (
         optional_subject IN ('SPANISH', 'MUSIC', 'ITALIAN', 'GERMAN')
     ),
     FOREIGN KEY (school_id) REFERENCES schools (id),
@@ -132,7 +145,7 @@ CREATE TABLE class_exam_schedule (
 CREATE TABLE teacher_assignments (
     teacher_id UUID NOT NULL,
     class_exam_schedule_id UUID NOT NULL,
-    role VARCHAR(20) NOT NULL CONSTRAINT role_check CHECK (role IN ('PRIMARY', 'SECONDARY')),
+    role VARCHAR(20) NOT NULL CONSTRAINT teacher_assignment_role_check CHECK (role IN ('PRIMARY', 'SECONDARY')),
     PRIMARY KEY (teacher_id, class_exam_schedule_id),
     --
     FOREIGN KEY (teacher_id) REFERENCES teachers (id) ON DELETE CASCADE,
