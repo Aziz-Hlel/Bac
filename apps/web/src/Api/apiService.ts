@@ -1,14 +1,8 @@
-import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import type { AxiosInstance, AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import ENV from '../config/env.variables';
 import { jwtTokenManager } from './token/JwtTokenManager.class';
-import {
-  apiErrorResponseSchema,
-  apiSuccessResponseSchema,
-  type ApiErrorResponse,
-  type ApiResponse,
-  type ApiSuccessResponse,
-} from '../types/api/ApiResponse';
+import { apiErrorResponseSchema, type ApiErrorResponse, type ApiResponse } from '../types/api/ApiResponse';
 import toastWrapper from '@/utils/toastWrapper';
 
 const creatAxiosInstance = (): AxiosInstance => {
@@ -125,17 +119,6 @@ class ApiService {
     return newAccessToken;
   }
 
-  toApiSuccessResponse<T>(response: AxiosResponse<ApiSuccessResponse<T>, unknown, object>): ApiSuccessResponse<T> {
-    const responseBody = response.data;
-    return {
-      data: responseBody.data,
-      status: response.status,
-      success: true,
-      message: responseBody.message,
-      timestamp: responseBody.timestamp,
-    };
-  }
-
   validateApiErrorSchema(response: ApiResponse<unknown>): response is ApiErrorResponse {
     const parsed = apiErrorResponseSchema.safeParse(response);
     if (parsed.success) {
@@ -143,13 +126,6 @@ class ApiService {
     }
     toastWrapper.dev.Critical('Response is not of type ApiErrorResponse');
     return false;
-  }
-
-  validateApiResponseSchema(data: ApiResponse<unknown>): void {
-    const parsedSchema = apiSuccessResponseSchema.safeParse(data);
-    if (!parsedSchema.success) {
-      toastWrapper.dev.Critical('API response schema validation failed');
-    }
   }
 
   handleApiErrorResponse(error: unknown): ApiErrorResponse {
@@ -186,52 +162,51 @@ class ApiService {
     }
   }
 
+  private toApiSuccessResponse<T>(data: T): ApiResponse<T> {
+    return {
+      success: true,
+      data,
+    };
+  }
+
   // Wrapper methods with error handling
   async get<T>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
     try {
-      const response = await this.api.get<ApiSuccessResponse<T>>(url, config);
+      const response = await this.api.get<T>(url, config);
 
-      this.validateApiResponseSchema(response.data);
-
-      return this.toApiSuccessResponse(response);
+      return this.toApiSuccessResponse(response.data);
     } catch (error: ApiErrorResponse | unknown) {
       return this.handleApiErrorResponse(error);
     }
   }
 
-  async getThrowable<T>(url: string, config?: AxiosRequestConfig): Promise<ApiSuccessResponse<T>> {
+  async getThrowable<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
     try {
-      const response = await this.api.get<ApiSuccessResponse<T>>(url, config);
+      const response = await this.api.get<T>(url, config);
 
-      this.validateApiResponseSchema(response.data);
-
-      return this.toApiSuccessResponse(response);
+      return response.data;
     } catch (error: ApiErrorResponse | unknown) {
       const errorResponse = this.handleApiErrorResponse(error);
       throw errorResponse;
     }
   }
 
-  async post<T>(url: string, data: unknown, config?: CustomAxiosRequestOptions): Promise<ApiSuccessResponse<T>> {
+  async post<T>(url: string, data: unknown, config?: CustomAxiosRequestOptions): Promise<ApiResponse<T>> {
     try {
-      const response = await this.api.post<ApiSuccessResponse<T>>(url, data, config);
+      const response = await this.api.post<T>(url, data, config);
 
-      this.validateApiResponseSchema(response.data);
-
-      return this.toApiSuccessResponse(response);
+      return this.toApiSuccessResponse(response.data);
     } catch (error: ApiErrorResponse | unknown) {
       const errorResponse = this.handleApiErrorResponse(error);
-      throw errorResponse;
+      return errorResponse;
     }
   }
 
-  async postThrowable<T>(url: string, data: unknown, config?: AxiosRequestConfig): Promise<ApiSuccessResponse<T>> {
+  async postThrowable<T>(url: string, data: unknown, config?: AxiosRequestConfig): Promise<T> {
     try {
-      const response = await this.api.post<ApiSuccessResponse<T>>(url, data, config);
+      const response = await this.api.post<T>(url, data, config);
 
-      this.validateApiResponseSchema(response.data);
-
-      return this.toApiSuccessResponse(response);
+      return response.data;
     } catch (error: ApiErrorResponse | unknown) {
       const errorResponse = this.handleApiErrorResponse(error);
       throw errorResponse;
@@ -240,28 +215,20 @@ class ApiService {
 
   async put<T>(url: string, data: unknown, config?: CustomAxiosRequestOptions): Promise<ApiResponse<T>> {
     try {
-      const response = await this.api.put<ApiSuccessResponse<T>>(url, data, config);
+      const response = await this.api.put<T>(url, data, config);
 
-      this.validateApiResponseSchema(response.data);
-
-      return this.toApiSuccessResponse(response);
+      return this.toApiSuccessResponse(response.data);
     } catch (error: ApiErrorResponse | unknown) {
       const errorResponse = this.handleApiErrorResponse(error);
       return errorResponse;
     }
   }
 
-  async putThrowable<T>(
-    url: string,
-    data: unknown,
-    config?: CustomAxiosRequestOptions,
-  ): Promise<ApiSuccessResponse<T>> {
+  async putThrowable<T>(url: string, data: unknown, config?: CustomAxiosRequestOptions): Promise<T> {
     try {
-      const response = await this.api.put<ApiSuccessResponse<T>>(url, data, config);
+      const response = await this.api.put<T>(url, data, config);
 
-      this.validateApiResponseSchema(response.data);
-
-      return this.toApiSuccessResponse(response);
+      return response.data;
     } catch (error: ApiErrorResponse | unknown) {
       const errorResponse = this.handleApiErrorResponse(error);
       throw errorResponse;
@@ -270,24 +237,20 @@ class ApiService {
 
   async delete<T>(url: string, config?: CustomAxiosRequestOptions): Promise<ApiResponse<T>> {
     try {
-      const response = await this.api.delete<ApiSuccessResponse<T>>(url, config);
+      const response = await this.api.delete<T>(url, config);
 
-      this.validateApiResponseSchema(response.data);
-
-      return this.toApiSuccessResponse(response);
+      return this.toApiSuccessResponse(response.data);
     } catch (error: ApiErrorResponse | unknown) {
       const errorResponse = this.handleApiErrorResponse(error);
       return errorResponse;
     }
   }
 
-  async deleteThrowable<T>(url: string, config?: CustomAxiosRequestOptions): Promise<ApiSuccessResponse<T>> {
+  async deleteThrowable<T>(url: string, config?: CustomAxiosRequestOptions): Promise<T> {
     try {
-      const response = await this.api.delete<ApiSuccessResponse<T>>(url, config);
+      const response = await this.api.delete<T>(url, config);
 
-      this.validateApiResponseSchema(response.data);
-
-      return this.toApiSuccessResponse(response);
+      return response.data;
     } catch (error: ApiErrorResponse | unknown) {
       const errorResponse = this.handleApiErrorResponse(error);
       throw errorResponse;

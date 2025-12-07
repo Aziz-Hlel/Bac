@@ -3,12 +3,10 @@ package com.tigana;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tigana.Utils.ApiResponse;
 import com.tigana.Utils.AppProperties;
+import com.tigana.shared.Dto.SimpleApiResponse;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,20 +22,14 @@ public class BacApplication {
 	}
 
 	@GetMapping("/")
-	public String getMethodName() {
-		return "scwx";
+	public SimpleApiResponse getMethodName() {
+		return new SimpleApiResponse("scwx");
 	};
 
 	@GetMapping("/health")
-	public ResponseEntity<ApiResponse<String>> healthCheck() {
+	public SimpleApiResponse healthCheck() {
 
-		ApiResponse<String> response = new ApiResponse<>();
-		response.setMessage("API is healthy");
-		return ResponseEntity.status(HttpStatus.OK)
-				.body(ApiResponse.<String>builder()
-						.message("API is healthy")
-						.status(HttpStatus.OK)
-						.build());
+		return new SimpleApiResponse("I feel good!");
 	};
 
 }

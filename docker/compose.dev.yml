@@ -9,6 +9,10 @@ services:
       - ${PROJECT_ROOT}/.env
     ports:
       - '${VITE_PORT}:${VITE_PORT}'
+    environment:
+      CHOKIDAR_USEPOLLING: true
+      WATCHPACK_POLLING: true
+
     depends_on:
       api:
         condition: service_healthy

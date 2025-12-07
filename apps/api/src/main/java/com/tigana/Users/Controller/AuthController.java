@@ -1,7 +1,5 @@
 package com.tigana.Users.Controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +11,7 @@ import com.tigana.Users.DTO.LoginWithProviderRequest;
 import com.tigana.Users.DTO.UserRequest;
 import com.tigana.Users.DTO.UserProfileResponse;
 import com.tigana.Users.Service.AuthService;
-import com.tigana.Utils.ApiResponse;
+import com.tigana.shared.Dto.SimpleApiResponse;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -44,48 +42,32 @@ public class AuthController {
                 var userResponse = usersService.createUser(firebaseToken);
 
                 return userResponse;
-                // return ResponseEntity.status(HttpStatus.CREATED)
-                //                 .body(ApiResponse.<UserProfileResponse>builder()
-                //                                 .message("User created successfully")
-                //                                 .data(userResponse)
-                //                                 .status(HttpStatus.CREATED)
-                                                // .build());
-
         }
 
         @PostMapping("/login")
-        public ResponseEntity<ApiResponse<UserProfileResponse>> loginWithPassword(@Valid @RequestBody UserRequest userRequest) {
+        public UserProfileResponse loginWithPassword(@Valid @RequestBody UserRequest userRequest) {
 
                 FirebaseToken firebaseToken = firebaseService.verifyIdToken(userRequest.getIdToken());
 
                 var userResponse = usersService.loginWithPassword(firebaseToken);
 
-                return ResponseEntity.status(HttpStatus.OK)
-                                .body(ApiResponse.<UserProfileResponse>builder()
-                                                .message("User logged in successfully")
-                                                .data(userResponse)
-                                                .status(HttpStatus.OK)
-                                                .build());
+                return userResponse;
 
         }
 
         @PostMapping("/oauth/login")
-        public ResponseEntity<ApiResponse<UserProfileResponse>> authenticateWithProvider(
+        public UserProfileResponse authenticateWithProvider(
                         @Valid @RequestBody LoginWithProviderRequest loginWithProviderRequest) {
 
                 FirebaseToken firebaseToken = firebaseService.verifyIdToken(loginWithProviderRequest.getIdToken());
 
                 UserProfileResponse userResponse = usersService.authenticateWithProvider(firebaseToken);
-                return ResponseEntity.status(HttpStatus.OK)
-                                .body(ApiResponse.<UserProfileResponse>builder()
-                                                .message("User authenticated successfully with external provider")
-                                                .data(userResponse)
-                                                .status(HttpStatus.OK)
-                                                .build());
+
+                return userResponse;
         }
 
         @GetMapping("/me")
-        public ResponseEntity<ApiResponse<UserProfileResponse>> getCurrentUser(HttpServletRequest request) {
+        public UserProfileResponse getCurrentUser(HttpServletRequest request) {
                 log.info("Fetching current user");
 
                 String idToken = request.getHeader("Authorization").substring(7);
@@ -94,25 +76,16 @@ public class AuthController {
 
                 var userResponse = usersService.getCurrentUser(firebaseToken);
 
-                return ResponseEntity.status(HttpStatus.OK)
-                                .body(ApiResponse.<UserProfileResponse>builder()
-                                                .message("Current user fetched successfully")
-                                                .data(userResponse)
-                                                .status(HttpStatus.OK)
-                                                .build());
+                return userResponse;
         }
 
         @GetMapping("/deleteAll")
-        public ResponseEntity<ApiResponse<String>> deleteAllUsers() {
+        public SimpleApiResponse deleteAllUsers() {
                 log.info("Deleting all users from Firebase Auth");
 
                 firebaseService.deleteAllUsers();
 
-                return ResponseEntity.status(HttpStatus.OK)
-                                .body(ApiResponse.<String>builder()
-                                                .message("All users deleted successfully from Firebase Auth")
-                                                .data("All users deleted")
-                                                .build());
+                return new SimpleApiResponse("All users deleted from Firebase Auth");
         }
 
 }

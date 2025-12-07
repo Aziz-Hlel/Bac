@@ -22,13 +22,13 @@ export interface IauthService {
 
 export const authService: IauthService = {
   signIn: (payload) => {
-    return apiService.post<SignInResponseDto>(apiRoutes.auth.signIn(), payload);
+    return apiService.post(apiRoutes.auth.signIn(), payload);
   },
   signUp: (payload) => {
-    return apiService.post<SignUpResponseDto>(apiRoutes.auth.signUp(), payload);
+    return apiService.post(apiRoutes.auth.signUp(), payload);
   },
   oAuthSignIn: (payload) => {
-    return apiService.post<SignInResponseDto>(apiRoutes.auth.oAuthSignIn(), payload);
+    return apiService.post(apiRoutes.auth.oAuthSignIn(), payload);
   },
   me: () => {
     return apiService.get(apiRoutes.auth.me());
