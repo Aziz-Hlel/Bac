@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.firebase.auth.FirebaseToken;
+import com.tigana.Interfaces.CurrentUser;
 import com.tigana.Utils.AppProperties;
 import com.tigana.shared.Dto.SimpleApiResponse;
 
@@ -27,9 +29,14 @@ public class BacApplication {
 	};
 
 	@GetMapping("/health")
-	public SimpleApiResponse healthCheck() {
+	public SimpleApiResponse healthCheck() { 
 
 		return new SimpleApiResponse("I feel good!");
 	};
 
+	@GetMapping("/secure")
+	public SimpleApiResponse secureEndpoint(@CurrentUser FirebaseToken firebaseToken) {
+
+		return new SimpleApiResponse("Hello, " + firebaseToken.getEmail() + "! This is a secure endpoint.");
+	};
 }

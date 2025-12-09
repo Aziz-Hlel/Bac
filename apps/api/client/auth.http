@@ -1,19 +1,94 @@
+@apiKey = AIzaSyDWKplAl5Vp43pG0j5j3vnThRJIPwv1E44
+@firebaseUrl = https://identitytoolkit.googleapis.com/v1
 
 @baseUrl = http://localhost:8080/api
 
+### !
+# @name DELETE_ALL_USERS
+GET {{baseUrl}}/auth/deleteAll
+Content-Type: application/json
 
 
-############################
-### Register a new user
-# @name register
+
+### 
+# @name firebase_register
+POST {{firebaseUrl}}/accounts:signUp?key={{apiKey}}
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "12345678",
+  "returnSecureToken": true
+}
+
+### 
+# @name server_register
 POST {{baseUrl}}/auth/register
 Content-Type: application/json
 
 {
-    "tokenId": "sqd645qds4685sdf"
+    "idToken": "{{firebase_register.response.body.idToken}}"
 }
 
 
+### 
+# @name firebase_login
+POST {{firebaseUrl}}/accounts:signInWithPassword?key={{apiKey}}
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "12345678",
+  "returnSecureToken": true
+}
+
+
+### 
+# @name server_login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "idToken": "{{firebase_login.response.body.idToken}}"
+}
+
+
+### 
+# @name firebase_token_refresh
+POST {{firebaseUrl}}/token?key={{apiKey}}
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=refresh_token&refresh_token={{firebase_login.response.body.refreshToken}}
+
+
+
+
+###
+# @name create_school
+POST {{baseUrl}}/school
+Content-Type: application/json
+Authorization: Bearer {{firebase_token_refresh.response.body.access_token}}
+
+{
+    "publicId": "SCHOOL TEST",
+    "name": "Test School",
+    "address": "123 Test St, Test City",
+    "city": "SOUSSE"
+}
+
+
+###
+# @name get_school
+GET {{baseUrl}}/school/f35c13d9-7341-416f-ab8b-e357dae2d481
+Content-Type: application/json
+Authorization: Bearer {{firebase_token_refresh.response.body.access_token}}
+
+
+###
+# @name me
+GET {{baseUrl}}/auth/me
+Content-Type: application/json
+Authorization: Bearer {{firebase_token_refresh.response.body.access_token}}
 
 
 
@@ -22,8 +97,7 @@ Content-Type: application/json
 
 
 
-
-############################
-# @name test-connection
+###
+# @name health
 GET {{baseUrl}}/health
 Content-Type: application/json

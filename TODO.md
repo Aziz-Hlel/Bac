@@ -6,3 +6,9 @@
 -- if a optional subject is deleted, all scheduling in school classes for that optional subject should be deleted too
 
 # Add targeted, computed indexes to improve query performance, especially on the ExamSchool table
+
+## FrontEnd
+
+-- you dont have a component for school details , the intial though is just add it in the superadmin for convinience as code and to users
+
+--

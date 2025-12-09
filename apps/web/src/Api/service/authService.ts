@@ -1,23 +1,21 @@
 import { apiService } from '@/Api/apiService';
 import apiRoutes from '../routes/routes';
-import type { SignInResponseDto } from '@/types/auth/SignInResponseDto';
-import type { SignUpResponseDto } from '@/types/auth/SignUpResponseDto';
 import type { FirebaseSignInRequestDto } from '@/types/auth/SignInRequestDto';
 import type { ApiResponse } from '../../types/api/ApiResponse';
 import type { FirebaseSignUpRequestSchema } from '@/types/auth/SignUpRequestDto';
-import type { User } from '@/types/user/user';
 import type { RefreshRequestDto } from '@/types/auth/RefreshRequestDto';
+import type { UserProfile } from '@/types/auth/UserProfile';
 
 export interface IauthService {
-  signIn: (payload: FirebaseSignInRequestDto) => Promise<ApiResponse<SignInResponseDto>>;
+  signIn: (payload: FirebaseSignInRequestDto) => Promise<ApiResponse<UserProfile>>;
 
-  signUp: (payload: FirebaseSignUpRequestSchema) => Promise<ApiResponse<SignUpResponseDto>>;
+  signUp: (payload: FirebaseSignUpRequestSchema) => Promise<ApiResponse<UserProfile>>;
 
-  oAuthSignIn: (payload: FirebaseSignInRequestDto) => Promise<ApiResponse<SignInResponseDto>>;
+  oAuthSignIn: (payload: FirebaseSignInRequestDto) => Promise<ApiResponse<UserProfile>>;
 
-  me: () => Promise<ApiResponse<User>>;
+  me: () => Promise<ApiResponse<UserProfile>>;
 
-  refresh: (payload: RefreshRequestDto) => Promise<ApiResponse<SignInResponseDto>>;
+  refresh: (payload: RefreshRequestDto) => Promise<ApiResponse<UserProfile>>;
 }
 
 export const authService: IauthService = {

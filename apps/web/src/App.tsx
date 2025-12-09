@@ -12,6 +12,8 @@ import { Toaster } from 'sonner';
 import Main from './pages/Sidebar';
 import { UserSessionProvider } from './context/UserConext';
 import UserPage from './pages/User';
+import OnboardingGuard from './guard/OnboardingGuard';
+import OnboardingExamsForms from './components/Forms/OnboardingExamsForms';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,11 +39,17 @@ function App() {
 
                 <Route element={<AuthenticatedRoutes />}>
                   <Route element={<UserSessionProvider />}>
-                    <Route element={<Main />}>
-                      <Route path="/" element={<Home />} />
-                      <Route index path="/profile" element={<Profile />} />
+                    <Route path="/on-boarding">
+                      <Route path="school-details" element={<div>Onboarding Step 1</div>} />
+                      <Route path="school-exams" element={<OnboardingExamsForms />} />
+                    </Route>
+                    <Route element={<OnboardingGuard />}>
+                      <Route element={<Main />}>
+                        <Route path="/" element={<Home />} />
+                        <Route index path="/profile" element={<Profile />} />
 
-                      <Route path="users/" element={<UserPage />}></Route>
+                        <Route path="users/" element={<UserPage />}></Route>
+                      </Route>
                     </Route>
                   </Route>
                 </Route>

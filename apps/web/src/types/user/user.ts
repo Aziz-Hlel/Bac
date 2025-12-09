@@ -1,4 +1,4 @@
-import RoleEnum from '@/Api/enums/RoleEnums';
+import RoleEnum from '@/enums/RoleEnums';
 import z from 'zod';
 
 export const userSchema = z.object({

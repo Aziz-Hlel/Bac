@@ -1,9 +1,9 @@
-import type { User } from '@/types/user/user';
 import { createContext, useContext } from 'react';
 import { useAuth } from './AuthContext';
 import { Outlet } from 'react-router-dom';
+import type { UserProfile } from '@/types/auth/UserProfile';
 
-const UserSessionContext = createContext<User | undefined>(undefined);
+const UserSessionContext = createContext<UserProfile | undefined>(undefined);
 
 export function UserSessionProvider() {
   const { user } = useAuth();
@@ -17,7 +17,7 @@ export function UserSessionProvider() {
   );
 }
 
-export const useUser = (): User => {
+export const useUser = (): UserProfile => {
   const user = useContext(UserSessionContext);
 
   if (user === undefined) {

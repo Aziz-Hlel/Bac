@@ -12,7 +12,11 @@ import com.google.firebase.auth.FirebaseToken;
 import com.tigana.Enums.RoleEnums;
 import com.tigana.ErrorHandler.Exceptions.ResourceNotFoundException;
 import com.tigana.Firebase.Service.FirebaseAuthService;
+import com.tigana.School.Model.School;
+import com.tigana.SchoolClasses.DTO.SchoolClassesResponse;
+import com.tigana.SchoolClasses.Service.SchoolClassesService;
 import com.tigana.Users.DTO.UserProfileResponse;
+import com.tigana.Users.DTO.onboardingResponse;
 import com.tigana.Users.Mapper.UserMapper;
 import com.tigana.Users.Model.User;
 import com.tigana.Users.Repositry.UsersRepo;
@@ -29,7 +33,21 @@ public class AuthService {
     private final UsersRepo usersRepo;
     private final UserMapper userMapper;
     private final FirebaseAuthService firebaseService;
+    private final SchoolClassesService schoolClassesService;
+
     private final Logger logger = Logger.getLogger(AuthService.class.getName());
+
+    public onboardingResponse userOnbording(User user) {
+        School userSchool = user.getSchool();
+        if (userSchool == null) {
+            return new onboardingResponse(false, 0);
+        }
+        SchoolClassesResponse schoolExams = schoolClassesService.getSchoolClasses(userSchool.getId());
+        if (schoolExams.schoolMajors().isEmpty() && schoolExams.schoolOptionalSubjects().isEmpty()) {
+            return new onboardingResponse(false, 1);
+        }
+        return new onboardingResponse(true, 2);
+    }
 
     public UserProfileResponse createUser(FirebaseToken firebaseToken) {
 
@@ -47,15 +65,12 @@ public class AuthService {
                 .role(RoleEnums.ADMIN)
                 .build();
 
-        // User userEntity = userMapper.toEntity(userRequest);
-
-        // userEntity.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-
         User savedUser = usersRepo.save(userEntity);
 
         firebaseService.setCustomClaims(userId.toString(), savedUser.getRole(), null);
 
-        UserProfileResponse userResponse = userMapper.toUserProfile(savedUser, firebaseToken);
+        onboardingResponse userOnboarding = userOnbording(savedUser);
+        UserProfileResponse userResponse = userMapper.toUserProfile(savedUser, firebaseToken, userOnboarding);
         return userResponse;
     }
 
@@ -75,7 +90,8 @@ public class AuthService {
             // TODO : set other claims like schoolId
             firebaseService.setCustomClaims(user.getId(), user.getRole(), null);
         }
-        UserProfileResponse userResponse = userMapper.toUserProfile(user, firebaseToken);
+        onboardingResponse userOnboarding = userOnbording(user);
+        UserProfileResponse userResponse = userMapper.toUserProfile(user, firebaseToken, userOnboarding);
         return userResponse;
     }
 
@@ -95,7 +111,8 @@ public class AuthService {
 
         User savedUser = usersRepo.save(userEntity);
 
-        UserProfileResponse userResponse = userMapper.toUserProfile(savedUser, firebaseToken);
+        onboardingResponse userOnboarding = userOnbording(savedUser);
+        UserProfileResponse userResponse = userMapper.toUserProfile(savedUser, firebaseToken, userOnboarding);
         return userResponse;
     }
 
@@ -128,8 +145,8 @@ public class AuthService {
             firebaseService.setCustomClaims(user.get().getId(), user.get().getRole(), null);
         }
 
-        UserProfileResponse userResponse = userMapper.toUserProfile(user.get(), firebaseToken);
-
+        onboardingResponse userOnboarding = userOnbording(user.get());
+        UserProfileResponse userResponse = userMapper.toUserProfile(user.get(), firebaseToken, userOnboarding);
         return userResponse;
     }
 
@@ -139,7 +156,8 @@ public class AuthService {
         User user = usersRepo.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User with id not found."));
 
-        UserProfileResponse userResponse = userMapper.toUserProfile(user, firebaseToken);
+        onboardingResponse userOnboarding = userOnbording(user);
+        UserProfileResponse userResponse = userMapper.toUserProfile(user, firebaseToken, userOnboarding);
         return userResponse;
     }
 
