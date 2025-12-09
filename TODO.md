@@ -11,4 +11,4 @@
 
 -- you dont have a component for school details , the intial though is just add it in the superadmin for convinience as code and to users
 
---
+-- make it so that if a user tried to login with google and they dont already have an account to throw an error and not create the account , the same goes for the register since all account registration is better held on the super admin side , specially since you gon add the school too to skip the first on boarding form
