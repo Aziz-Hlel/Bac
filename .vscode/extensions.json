@@ -6,6 +6,8 @@
         "stivo.tailwind-fold", // * Tailwind Fold
         "humao.rest-client", // * REST Client
         "usernamehw.errorlens", // * Error Lens
+        "wix.vscode-import-cost", // * Import Cost
+        "ms-azuretools.vscode-docker", // * Docker
         // "dbaeumer.vscode-eslint", // * ESLint
     ],
 }

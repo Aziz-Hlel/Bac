@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 
 import lombok.experimental.UtilityClass;
 
-
 @UtilityClass
 public class PublicEndpoints {
 
@@ -15,6 +14,7 @@ public class PublicEndpoints {
             "/auth/**",
             "/public/**",
             "/health",
+            "/health/",
             "/actuator/health", // For production health checks
             "/swagger-ui/**",
             "/v3/api-docs/**",
