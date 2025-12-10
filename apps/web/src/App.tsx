@@ -13,7 +13,7 @@ import Main from './pages/Sidebar';
 import { UserSessionProvider } from './context/UserConext';
 import UserPage from './pages/User';
 import OnboardingGuard from './guard/OnboardingGuard';
-import OnboardingExamsForms from './components/Forms/OnboardingExamsForms';
+import OnboardingExamsForms from './components/OnboardingForms/OnboardingExamsForms';
 
 const queryClient = new QueryClient({
   defaultOptions: {

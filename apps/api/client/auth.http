@@ -79,7 +79,7 @@ Authorization: Bearer {{firebase_token_refresh.response.body.access_token}}
 
 ###
 # @name get_school
-GET {{baseUrl}}/school/f35c13d9-7341-416f-ab8b-e357dae2d481
+GET {{baseUrl}}/school/{{create_school.response.body.message}}
 Content-Type: application/json
 Authorization: Bearer {{firebase_token_refresh.response.body.access_token}}
 

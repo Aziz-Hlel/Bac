@@ -55,12 +55,12 @@ export type AssignmentRoleEnum = (typeof AssignmentRole)[keyof typeof Assignment
 
 // OptionalSubjectEnums.ts
 export const OptionalSubjectEnums = {
-  SPANISH: 'SPANISH',
-  ITALIAN: 'ITALIAN',
-  GERMAN: 'GERMAN',
+  SPANISH: 'Spanish',
+  ITALIAN: 'Italian',
+  GERMAN: 'German',
 } as const;
 
-export type OptionalSubjectEnum = (typeof OptionalSubjectEnums)[keyof typeof OptionalSubjectEnums];
+export type OptionalSubjectEnum = keyof typeof OptionalSubjectEnums;
 
 // MajorEnums.ts
 export const MajorEnums = {

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tigana.ErrorHandler.Exceptions.ForbiddenAccessException;
 import com.tigana.ErrorHandler.Exceptions.ResourceNotFoundException;
+import com.tigana.Firebase.Service.FirebaseAuthService;
 import com.tigana.School.DTO.SchoolRequest;
 import com.tigana.School.DTO.SchoolResponse;
 import com.tigana.School.Mapper.SchoolMapper;
@@ -27,6 +28,8 @@ public class SchoolService {
   private SchoolRepo schoolRepo;
   private SchoolMapper schoolMapper;
   private UsersRepo usersRepo;
+
+  private final FirebaseAuthService firebaseService;
 
   public UUID createSchool(SchoolRequest schoolRequest) {
 
@@ -51,6 +54,7 @@ public class SchoolService {
     user.setSchool(entity);
     usersRepo.save(user);
 
+    firebaseService.setCustomClaims(userId, user.getRole(), entity.getId().toString());
     return entity.getId();
   }
 

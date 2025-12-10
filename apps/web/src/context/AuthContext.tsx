@@ -18,6 +18,7 @@ type IAuthContext = {
   signIn: IauthService['signIn'];
   signUp: IauthService['signUp'];
   oAuthSignIn: IauthService['oAuthSignIn'];
+  refreshUser: () => Promise<void>;
   logout: () => void;
 };
 
@@ -128,6 +129,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     [signInMutation],
   );
 
+  const refreshUser = useCallback(async () => {
+    const response = await authService.me();
+    if (response.success) {
+      queryClient.setQueryData(AUTH_QUERY_KEY, response.data);
+    } else {
+      console.error('Failed to refresh user data');
+    }
+  }, [queryClient]);
+
   const logout = useCallback(() => {
     jwtTokenManager.clearTokens();
     queryClient.setQueryData(AUTH_QUERY_KEY, null);
@@ -142,9 +152,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       signIn,
       signUp,
       oAuthSignIn,
+      refreshUser,
       logout,
     }),
-    [signIn, signUp, oAuthSignIn, logout, authState],
+    [signIn, signUp, oAuthSignIn, refreshUser, logout, authState],
   );
 
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;

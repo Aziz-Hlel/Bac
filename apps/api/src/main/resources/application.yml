@@ -13,7 +13,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create-drop # In dev, we want the schema to be created on startup and dropped on shutdown.
+      ddl-auto: update 
       format_sql: true
 
     show-sql: true

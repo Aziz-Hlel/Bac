@@ -1,13 +1,40 @@
 import { useUser } from '@/context/UserConext';
 import { Navigate, Outlet } from 'react-router-dom';
 
-const onboardingPaths = ['/onboarding/step-1', '/on-boarding/school-exams', '/onboarding/step-3'];
+type OnboardingPathProps = {
+  name: string;
+  path: string;
+};
+
+const onboardingNavigationPaths: OnboardingPathProps[] = [
+  {
+    path: '/onboarding/step-1',
+    name: 'Register school',
+  },
+  { path: '/on-boarding/school-exams', name: 'School exams' },
+  { path: '/onboarding/step-3', name: 'Step 3' },
+];
+
+type OnboardingPathPropsWithNext = OnboardingPathProps & {
+  next: () => OnboardingPathProps;
+};
+const homePath: OnboardingPathProps = {
+  name: 'Home',
+  path: '/',
+};
+
+export const OnBoardingPaths: OnboardingPathPropsWithNext[] = onboardingNavigationPaths.map((path, index, array) => {
+  return {
+    ...path,
+    next: () => (index + 1 < array.length ? array[index + 1] : homePath),
+  };
+});
 
 const OnboardingGuard = () => {
   const user = useUser();
 
   if (!user.onboarding.completed) {
-    return <Navigate to={onboardingPaths[user.onboarding.step]} replace />;
+    return <Navigate to={onboardingNavigationPaths[user.onboarding.step].path} replace />;
   }
 
   return <Outlet />;

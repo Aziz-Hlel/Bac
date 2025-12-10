@@ -3,7 +3,7 @@ import axios from 'axios';
 import ENV from '../config/env.variables';
 import { jwtTokenManager } from './token/JwtTokenManager.class';
 import { apiErrorResponseSchema, type ApiErrorResponse, type ApiResponse } from '../types/api/ApiResponse';
-import toastWrapper from '@/utils/toastWrapper';
+import toastWrapper from '@/toast/toastWrapper';
 
 const creatAxiosInstance = (): AxiosInstance => {
   return axios.create({

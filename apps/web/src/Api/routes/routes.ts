@@ -2,7 +2,7 @@ import ENV from '@/config/env.variables';
 
 const apiRoutes = {
   baseUrl: () => ENV.BASE_URL,
-  health: () => '/health' as const, // ! make this api
+  health: () => '/health' as const,
   auth: {
     me: () => '/auth/me' as const,
     signIn: () => '/auth/login' as const,
@@ -19,6 +19,9 @@ const apiRoutes = {
     emailProperty: () => '/services/email/property' as const,
   },
 
+  schoolExams: {
+    create: (schoolId: string) => `/schools/${schoolId}/school-classes` as const,
+  },
   images: ENV.BASE_URL + '/images/',
 
   getSignedUrl: ENV.BASE_URL + '/images/getSignedUrl',

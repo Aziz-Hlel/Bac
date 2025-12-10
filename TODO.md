@@ -5,6 +5,10 @@
 -- if a school major is deleted, all scheduling in school classes for that major should be deleted too
 -- if a optional subject is deleted, all scheduling in school classes for that optional subject should be deleted too
 
+-- the update,delete for schoolClasses for example and i bet bunch of ever modules are not compatible now for superadmin, you get the school id from the authentification utils that s why , and if you ll take it from the path variable you gotta ensure it equals to the school id from the claims
+
+-- if user is superadmin schoolId would be null , so when updating or something and gettin the school id from authentification utils it ll throw an error
+
 # Add targeted, computed indexes to improve query performance, especially on the ExamSchool table
 
 ## FrontEnd

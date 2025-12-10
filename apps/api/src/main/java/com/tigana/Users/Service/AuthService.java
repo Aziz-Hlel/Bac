@@ -77,21 +77,29 @@ public class AuthService {
     public UserProfileResponse loginWithPassword(FirebaseToken firebaseToken) {
 
         String userEmail = firebaseToken.getEmail();
-        User user = usersRepo.findByEmail(userEmail)
-                .orElseThrow(() -> new IllegalArgumentException("User with email not found."));
 
+        Optional<User> optionalUser = usersRepo.findByEmail(userEmail);
+
+        if (optionalUser.isEmpty()) {
+            // * this part is incase register didnt go through post registration in
+            // fireabse, shit happens you know, at least make some logging to catch it to be
+            // aware if it ever happended in prod
+            return this.addUser(firebaseToken);
+        }
+
+        User userEntity = optionalUser.get();
         var claims = firebaseToken.getClaims();
         if (claims == null) {
             claims = Collections.emptyMap();
         }
 
         Object roleClaim = claims.get("role");
-        if (!Objects.equals(roleClaim, user.getRole().name())) {
+        if (!Objects.equals(roleClaim, userEntity.getRole().name())) {
             // TODO : set other claims like schoolId
-            firebaseService.setCustomClaims(user.getId(), user.getRole(), null);
+            firebaseService.setCustomClaims(userEntity.getId(), userEntity.getRole(), null);
         }
-        onboardingResponse userOnboarding = userOnbording(user);
-        UserProfileResponse userResponse = userMapper.toUserProfile(user, firebaseToken, userOnboarding);
+        onboardingResponse userOnboarding = userOnbording(userEntity);
+        UserProfileResponse userResponse = userMapper.toUserProfile(userEntity, firebaseToken, userOnboarding);
         return userResponse;
     }
 

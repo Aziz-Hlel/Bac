@@ -7,6 +7,7 @@ export const userSchema = z.object({
   email: z.email().max(255),
   role: z.enum(Object.values(RoleEnum)),
   avatar: z.url().optional(),
+  schoolId: z.string(),
   createdAt: z.string(),
 });
 

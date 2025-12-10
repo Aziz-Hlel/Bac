@@ -1,6 +1,6 @@
 import apiRoutes from '@/Api/routes/routes';
 import ENV from '@/config/env.variables';
-import toastWrapper from '@/utils/toastWrapper';
+import toastWrapper from '@/toast/toastWrapper';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { toast } from 'sonner';

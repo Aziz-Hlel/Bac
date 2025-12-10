@@ -7,6 +7,7 @@ import com.tigana.SchoolClasses.DTO.SchoolClassesRequest;
 import com.tigana.SchoolClasses.DTO.SchoolClassesResponse;
 import com.tigana.SchoolClasses.Service.SchoolClassesService;
 import com.tigana.Utils.AppConstants;
+import com.tigana.Utils.AuthenticationUtils;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,7 @@ public class SchoolClassesController {
     @PostMapping({ "/", "" })
     public ResponseEntity<Boolean> createSchoolClasses(@RequestBody @Valid SchoolClassesRequest request) {
 
-        UUID schoolId = AppConstants.schoolId;
+        UUID schoolId = AuthenticationUtils.getSchoolId();
 
         schoolClassesService.createSchoolClasses(request, schoolId);
 
@@ -43,7 +44,7 @@ public class SchoolClassesController {
     @PutMapping({ "/", "" })
     public ResponseEntity<Boolean> updateSchoolClasses(@RequestBody @Valid SchoolClassesRequest request) {
 
-        UUID schoolId = AppConstants.schoolId;
+        UUID schoolId = AuthenticationUtils.getSchoolId();
 
         schoolClassesService.updatedSchoolClasses(request, schoolId);
 
@@ -54,7 +55,7 @@ public class SchoolClassesController {
     @GetMapping({ "/", "" })
     public ResponseEntity<SchoolClassesResponse> getSchoolClasses() {
 
-        UUID schoolId = AppConstants.schoolId;
+        UUID schoolId = AuthenticationUtils.getSchoolId();
 
         SchoolClassesResponse response = schoolClassesService.getSchoolClasses(schoolId);
 

@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tigana.School.DTO.SchoolRequest;
 import com.tigana.School.DTO.SchoolResponse;
 import com.tigana.School.Service.SchoolService;
+import com.tigana.Utils.AuthenticationUtils;
 import com.tigana.Utils.UserContext;
+import com.tigana.shared.Dto.SimpleApiResponse;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -31,20 +33,18 @@ public class SchoolController {
     private final SchoolService schoolService;
 
     @PostMapping({ "", "/" })
-    public ResponseEntity<UUID> create(@Valid @RequestBody SchoolRequest schoolRequest) {
+    public ResponseEntity<SimpleApiResponse> create(@Valid @RequestBody SchoolRequest schoolRequest) {
 
-
-        UUID schoolId = schoolService.createSchool(schoolRequest);
+        UUID schoolId = AuthenticationUtils.getSchoolId();
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(schoolId);
+                .body(new SimpleApiResponse(schoolId.toString()));
     };
 
     @PutMapping("/{schoolId}")
     public ResponseEntity<SchoolResponse> put(@PathVariable UUID schoolId,
             @Valid @RequestBody SchoolRequest schoolRequest) {
-
 
         SchoolResponse entity = schoolService.updateSchool(schoolRequest, schoolId);
         return ResponseEntity.ok(entity);
