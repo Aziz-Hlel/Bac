@@ -1,18 +1,25 @@
 package com.tigana.Teachers.Controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tigana.Enums.RoleEnums;
 import com.tigana.Teachers.DTO.TeacherRequest;
 import com.tigana.Teachers.DTO.TeacherResponse;
 import com.tigana.Teachers.Service.TeacherService;
+import com.tigana.Users.DTO.UserResponse;
 import com.tigana.Utils.UserContext;
+import com.tigana.shared.Dto.CustomPage;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 import java.util.UUID;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -58,5 +65,15 @@ public class TeacherController {
 
         return ResponseEntity.ok(entity);
     };
+
+    @GetMapping({ "", "/" })
+    public CustomPage<TeacherResponse> teachers(@RequestParam(required = false) String search,
+            @RequestParam(required = false) RoleEnums role,
+            @PageableDefault(size = 5, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
+        var teachers = teacherService.searchTeachers(search, role, pageable);
+
+        return teachers;
+
+    }
 
 }

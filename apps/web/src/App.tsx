@@ -14,6 +14,7 @@ import { UserSessionProvider } from './context/UserConext';
 import UserPage from './pages/User';
 import OnboardingGuard from './guard/OnboardingGuard';
 import OnboardingExamsForms from './components/OnboardingForms/OnboardingExamsForms';
+import TeachersMainPage from './pages/TeachersMainPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,8 +26,9 @@ const queryClient = new QueryClient({
 });
 
 function App() {
+  const dir: 'rtl' | 'ltr' = 'ltr';
   return (
-    <>
+    <div dir={dir}>
       <Toaster />
       <QueryClientProvider client={queryClient}>
         <NetworkStatusGuard>
@@ -44,11 +46,12 @@ function App() {
                       <Route path="school-exams" element={<OnboardingExamsForms />} />
                     </Route>
                     <Route element={<OnboardingGuard />}>
-                      <Route element={<Main />}>
+                      <Route element={<Main dir={dir} />}>
                         <Route path="/" element={<Home />} />
                         <Route index path="/profile" element={<Profile />} />
 
                         <Route path="users/" element={<UserPage />}></Route>
+                        <Route path="teachers/" element={<TeachersMainPage />}></Route>
                       </Route>
                     </Route>
                   </Route>
@@ -61,7 +64,7 @@ function App() {
           {/* </SidebarProvider> */}
         </NetworkStatusGuard>
       </QueryClientProvider>
-    </>
+    </div>
   );
 }
 

@@ -1,57 +1,57 @@
 // CityEnums.ts
 export const CityEnums = {
-  SOUSSE: 'SOUSSE',
-  TUNIS: 'TUNIS',
-  TOZEUR: 'TOZEUR',
-  ZARZIS: 'ZARZIS',
-  NABEUL: 'NABEUL',
+  SOUSSE: 'Sousse',
+  TUNIS: 'Tunis',
+  TOZEUR: 'Tozeur',
+  ZARZIS: 'Zarzis',
+  NABEUL: 'Nabeul',
 } as const;
 
-export type CityEnum = (typeof CityEnums)[keyof typeof CityEnums];
+export type CityEnum = keyof typeof CityEnums;
 
 // SessionEnums.ts
 export const SessionEnums = {
-  MORNING: 'MORNING',
-  EVENING: 'EVENING',
+  MORNING: 'Morning',
+  EVENING: 'Evening',
 } as const;
 
-export type SessionEnum = (typeof SessionEnums)[keyof typeof SessionEnums];
+export type SessionEnum = keyof typeof SessionEnums;
 
 // Subject.ts
 export const Subject = {
-  MATH: 'MATH',
-  SCIENCE: 'SCIENCE',
-  ENGLISH: 'ENGLISH',
-  FRENCH: 'FRENCH',
-  HISTORY: 'HISTORY',
-  GEOGRAPHY: 'GEOGRAPHY',
-  BIOLOGY: 'BIOLOGY',
-  CHEMISTRY: 'CHEMISTRY',
-  PHYSICS: 'PHYSICS',
-  SPANISH: 'SPANISH',
-  ITALIAN: 'ITALIAN',
-  GERMAN: 'GERMAN',
+  MATH: 'Math',
+  SCIENCE: 'Science',
+  ENGLISH: 'English',
+  FRENCH: 'French',
+  HISTORY: 'History',
+  GEOGRAPHY: 'Geography',
+  BIOLOGY: 'Biology',
+  CHEMISTRY: 'Chemistry',
+  PHYSICS: 'Physics',
+  SPANISH: 'Spanish',
+  ITALIAN: 'Italian',
+  GERMAN: 'German',
 } as const;
 
-export type SubjectEnum = (typeof Subject)[keyof typeof Subject];
+export type SubjectEnum = keyof typeof Subject;
 
 // PrefixEnum.ts
 export const PrefixEnum = {
-  MADAME: 'MADAME',
-  MISS: 'MISS',
-  MR: 'MR',
-  MRS: 'MRS',
+  MADAME: 'Madame',
+  MISS: 'Miss',
+  MR: 'Mr',
+  MRS: 'Mrs',
 } as const;
 
-export type PrefixEnumType = (typeof PrefixEnum)[keyof typeof PrefixEnum];
+export type PrefixEnumType = keyof typeof PrefixEnum;
 
 // AssignmentRole.ts
 export const AssignmentRole = {
-  PRIMARY: 'PRIMARY',
-  SECONDARY: 'SECONDARY',
+  PRIMARY: 'Primary',
+  SECONDARY: 'Secondary',
 } as const;
 
-export type AssignmentRoleEnum = (typeof AssignmentRole)[keyof typeof AssignmentRole];
+export type AssignmentRoleEnum = keyof typeof AssignmentRole;
 
 // OptionalSubjectEnums.ts
 export const OptionalSubjectEnums = {
@@ -77,51 +77,51 @@ export type MajorEnum = keyof typeof MajorEnums;
 
 // OAuthProviders.ts
 export const OAuthProviders = {
-  GOOGLE: 'GOOGLE',
-  FACEBOOK: 'FACEBOOK',
-  APPLE: 'APPLE',
+  GOOGLE: 'Google',
+  FACEBOOK: 'Facebook',
+  APPLE: 'Apple',
 } as const;
 
-export type OAuthProvider = (typeof OAuthProviders)[keyof typeof OAuthProviders];
+export type OAuthProvider = keyof typeof OAuthProviders;
 
 // TermEnums.ts
 export const TermEnums = {
-  PRINCIPAL: 'PRINCIPAL',
-  RETAKE: 'RETAKE',
+  PRINCIPAL: 'Principal',
+  RETAKE: 'Retake',
 } as const;
 
-export type TermEnum = (typeof TermEnums)[keyof typeof TermEnums];
+export type TermEnum = keyof typeof TermEnums;
 
 // SubjectType.ts
 export const SubjectType = {
-  REQUIRED: 'REQUIRED',
-  OPTIONAL: 'OPTIONAL',
+  REQUIRED: 'Required',
+  OPTIONAL: 'Optional',
 } as const;
 
-export type SubjectTypeEnum = (typeof SubjectType)[keyof typeof SubjectType];
+export type SubjectTypeEnum = keyof typeof SubjectType;
 
 // SubjectEnums.ts
 export const SubjectEnums = {
-  MATH: 'MATH',
-  SCIENCE: 'SCIENCE',
-  ENGLISH: 'ENGLISH',
-  FRENCH: 'FRENCH',
-  HISTORY: 'HISTORY',
-  GEOGRAPHY: 'GEOGRAPHY',
-  BIOLOGY: 'BIOLOGY',
-  CHEMISTRY: 'CHEMISTRY',
-  PHYSICS: 'PHYSICS',
-  SPANISH: 'SPANISH',
-  ITALIAN: 'ITALIAN',
-  GERMAN: 'GERMAN',
+  MATH: 'Math',
+  SCIENCE: 'Science',
+  ENGLISH: 'English',
+  FRENCH: 'French',
+  HISTORY: 'History',
+  GEOGRAPHY: 'Geography',
+  BIOLOGY: 'Biology',
+  CHEMISTRY: 'Chemistry',
+  PHYSICS: 'Physics',
+  SPANISH: 'Spanish',
+  ITALIAN: 'Italian',
+  GERMAN: 'German',
 } as const;
 
-export type SubjectEnumsType = (typeof SubjectEnums)[keyof typeof SubjectEnums];
+export type SubjectEnumsType = keyof typeof SubjectEnums;
 
 // RoleEnums.ts
 export const RoleEnums = {
-  ADMIN: 'ADMIN',
-  SUPER_ADMIN: 'SUPER_ADMIN',
+  ADMIN: 'Admin',
+  SUPER_ADMIN: 'Super Admin',
 } as const;
 
-export type RoleEnum = (typeof RoleEnums)[keyof typeof RoleEnums];
+export type RoleEnum = keyof typeof RoleEnums;

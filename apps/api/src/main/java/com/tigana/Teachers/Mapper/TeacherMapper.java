@@ -26,5 +26,7 @@ public interface TeacherMapper {
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "school", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     Teacher toUpdatedEntity(TeacherRequest teacherRequest, @MappingTarget Teacher teacher);
 }

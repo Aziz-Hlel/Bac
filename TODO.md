@@ -9,6 +9,12 @@
 
 -- if user is superadmin schoolId would be null , so when updating or something and gettin the school id from authentification utils it ll throw an error
 
+-- for the school exams , and how would the user input them but based on seesion , you can add to the flow you re doing right ,ow the attribute seesion , so if seesion is retake and school doesnt have record in optionalschool exams and school majors with the session retake then it ll give back the onboarding complte as false , and for the front end based on the session it ll show the same interface but with slightly diff text for retake and principal so that user would diffrentiate and knows this one now is for retake
+
+-- you can add an upload teacher feature as part of the onboarding so that users if having an excel would have easier time inputing the teachers data
+
+-- add a download teachers data too so that would only input it on your app and can get it anytime without the need to saisie it bunch of times elsewhere f they had too
+
 # Add targeted, computed indexes to improve query performance, especially on the ExamSchool table
 
 ## FrontEnd

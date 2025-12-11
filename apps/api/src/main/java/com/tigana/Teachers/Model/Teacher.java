@@ -1,6 +1,10 @@
 package com.tigana.Teachers.Model;
 
+import java.time.Instant;
 import java.util.UUID;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.tigana.Enums.PrefixEnum;
 import com.tigana.Enums.SubjectEnums;
@@ -50,5 +54,13 @@ public class Teacher {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Instant createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
+    private Instant updatedAt;
 
 }

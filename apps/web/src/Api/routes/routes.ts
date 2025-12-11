@@ -13,6 +13,9 @@ const apiRoutes = {
   users: {
     getUsers: () => '/users' as const,
   },
+  teachers: {
+    getPage: () => '/teachers' as const,
+  },
 
   services: {
     emailContactUs: () => '/services/email/contact-us' as const,
