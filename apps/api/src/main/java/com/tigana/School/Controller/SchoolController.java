@@ -35,11 +35,11 @@ public class SchoolController {
     @PostMapping({ "", "/" })
     public ResponseEntity<SimpleApiResponse> create(@Valid @RequestBody SchoolRequest schoolRequest) {
 
-        UUID schoolId = AuthenticationUtils.getSchoolId();
-
+        // UUID schoolId = AuthenticationUtils.getSchoolId();
+        var response = schoolService.createSchool(schoolRequest);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(new SimpleApiResponse(schoolId.toString()));
+                .body(new SimpleApiResponse(response.toString()));
     };
 
     @PutMapping("/{schoolId}")

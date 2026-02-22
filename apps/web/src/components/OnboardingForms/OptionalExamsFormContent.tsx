@@ -1,13 +1,12 @@
 import type { SchoolExams } from '@/types/onboard/schoolExams';
 import React from 'react';
-import { Controller, useFieldArray, type UseFormReturn } from 'react-hook-form';
-import { useGetArray } from './use-Get-Array';
+import { useFieldArray, type UseFormReturn } from 'react-hook-form';
 import { Checkbox } from '../ui/checkbox';
 import { Label } from '../ui/label';
-import { MajorEnums, OptionalSubjectEnums, type MajorEnum, type OptionalSubjectEnum } from '@/enums/rest';
+import { type OptionalSubjectEnum } from '@/enums/rest';
 import { Input } from '../ui/input';
-import { Field, FieldLabel } from '../ui/field';
 import type { CheckedState } from '@radix-ui/react-checkbox';
+import { OptionalSubjectEnumsMapping } from '@/enums/EnumMapping';
 
 interface OptionalExamsFormContentProps {
   form: UseFormReturn<SchoolExams>;
@@ -69,13 +68,18 @@ const OptionalExamsFormContent = ({ form, examType }: OptionalExamsFormContentPr
             className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
           />
           <div className="grid gap-1.5 font-normal">
-            <p className="text-sm leading-none font-medium">{OptionalSubjectEnums[examType]}</p>
+            <p className="text-sm leading-none font-medium">{OptionalSubjectEnumsMapping[examType]}</p>
             <Input
               className=""
               disabled={!isMajorSelected}
               value={majorNumberClasses}
               onChange={handleClassNumberChange}
             />
+            {form.formState.errors.schoolOptionalSubjects?.[majorIndex]?.classNumber && (
+              <p className="text-red-500 text-sm">
+                {form.formState.errors.schoolOptionalSubjects?.[majorIndex]?.classNumber?.message}
+              </p>
+            )}
           </div>
         </Label>
       </>

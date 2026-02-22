@@ -8,6 +8,7 @@ import { MajorEnums, type MajorEnum, type OptionalSubjectEnum } from '@/enums/re
 import { Input } from '../ui/input';
 import { Field, FieldLabel } from '../ui/field';
 import type { CheckedState } from '@radix-ui/react-checkbox';
+import { MajorEnumsMapping } from '@/enums/EnumMapping';
 
 interface ExamFormContentProps {
   form: UseFormReturn<SchoolExams>;
@@ -24,7 +25,6 @@ const ExamFormContent = ({ form, examType }: ExamFormContentProps) => {
     return field.majorName === examType;
   });
   const isMajorSelected = majorIndex !== -1;
-
   const majorNumberClasses = isMajorSelected ? fields[majorIndex].classNumber : 0;
 
   const addMajor = () => {
@@ -69,8 +69,13 @@ const ExamFormContent = ({ form, examType }: ExamFormContentProps) => {
               onCheckedChange={handleCheckboxChange}
               className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
             />
-            <p className="text-sm leading-none font-medium">{MajorEnums[examType]}</p>
+            <p className="text-sm leading-none font-medium">{MajorEnumsMapping[examType]}</p>
             <Input disabled={!isMajorSelected} value={majorNumberClasses} onChange={handleClassNumberChange} />
+            {form.formState.errors.schoolMajors?.[majorIndex]?.classNumber && (
+              <p className="text-red-500 text-sm">
+                {form.formState.errors.schoolMajors?.[majorIndex]?.classNumber?.message}
+              </p>
+            )}
           </div>
         </Label>
       </>

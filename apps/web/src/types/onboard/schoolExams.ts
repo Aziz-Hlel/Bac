@@ -6,22 +6,22 @@ export const SchoolMajorsSchema = z.object({
     .number({
       error: 'Class number must be a number',
     })
-    .min(1)
-    .max(50),
+    .min(1, 'Class number must be at least 1')
+    .max(50, 'Class number must be at most 50'),
 
-  majorName: z.enum(Object.keys(MajorEnums)).nonoptional(),
+  majorName: z.enum(Object.values(MajorEnums)).nonoptional(),
   term: z.enum(TermEnums).default(TermEnums.PRINCIPAL).nonoptional(),
 });
 
 export const schoolOptionalSubjectsSchema = z.object({
-  optionalSubject: z.enum(Object.keys(OptionalSubjectEnums)).nonoptional(),
+  optionalSubject: z.enum(Object.values(OptionalSubjectEnums)).nonoptional(),
   term: z.enum(TermEnums).default(TermEnums.PRINCIPAL).nonoptional(),
   classNumber: z
     .number({
       error: 'Class number must be a number',
     })
-    .min(1)
-    .max(50),
+    .min(1, 'Class number must be at least 1')
+    .max(50, 'Class number must be at most 50'),
 });
 
 export const schoolExamsSchema = z.object({

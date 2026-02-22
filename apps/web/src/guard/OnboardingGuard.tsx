@@ -8,11 +8,11 @@ type OnboardingPathProps = {
 
 const onboardingNavigationPaths: OnboardingPathProps[] = [
   {
-    path: '/onboarding/step-1',
+    path: '/on-boarding/step-1',
     name: 'Register school',
   },
   { path: '/on-boarding/school-exams', name: 'School exams' },
-  { path: '/onboarding/step-3', name: 'Step 3' },
+  { path: '/on-boarding/step-3', name: 'Step 3' },
 ];
 
 type OnboardingPathPropsWithNext = OnboardingPathProps & {

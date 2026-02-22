@@ -24,7 +24,7 @@ public class ProdSeeder {
         // Add production seeding logic here
         log.info("Production seeding completed.");
 
-        String godEmail = "tigana137@gmail.com";
+        String godEmail = "m.aziz.hlel@gmail.com";
         String godUsername = "tigana";
 
         UserRecord godFirebaseAccount = firebaseAuthService.getUserByEmail(godEmail);

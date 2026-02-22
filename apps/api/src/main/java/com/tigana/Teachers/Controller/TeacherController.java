@@ -8,7 +8,6 @@ import com.tigana.Enums.RoleEnums;
 import com.tigana.Teachers.DTO.TeacherRequest;
 import com.tigana.Teachers.DTO.TeacherResponse;
 import com.tigana.Teachers.Service.TeacherService;
-import com.tigana.Users.DTO.UserResponse;
 import com.tigana.Utils.UserContext;
 import com.tigana.shared.Dto.CustomPage;
 

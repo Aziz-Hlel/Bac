@@ -1,7 +1,7 @@
 import { schoolExamsSchema, type SchoolExams } from '@/types/onboard/schoolExams';
 import { zodResolver } from '@hookform/resolvers/zod/dist/zod.js';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { Field, FieldGroup } from '@/components/ui/field';
+import { Field } from '@/components/ui/field';
 import { Label } from '../ui/label';
 import ExamFormContent from './ExamFormContent';
 import { MajorEnums, OptionalSubjectEnums, type MajorEnum, type OptionalSubjectEnum } from '@/enums/rest';
@@ -49,6 +49,9 @@ const OnboardingExamsForms = () => {
       navigate('/');
     } catch (_) {}
   };
+
+  console.log(form.formState.errors);
+  console.log('values', form.getValues());
   return (
     <>
       <div className=" mx-auto  w-full  flex justify-center py-12">

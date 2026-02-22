@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tigana.SchoolClasses.DTO.SchoolClassesRequest;
 import com.tigana.SchoolClasses.DTO.SchoolClassesResponse;
 import com.tigana.SchoolClasses.Service.SchoolClassesService;
-import com.tigana.Utils.AppConstants;
 import com.tigana.Utils.AuthenticationUtils;
 
 import jakarta.validation.Valid;
