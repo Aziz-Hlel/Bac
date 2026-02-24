@@ -13,7 +13,7 @@ const useGetTableData = () => {
 
   const { data } = useQuery({
     queryKey: ['teachers', searchParams.toString()],
-    queryFn: async () => await teacherService.getTeachers(queryParams),
+    queryFn: async () => await teacherService.getPage(queryParams),
   });
 
   const tableData = data?.content ?? [];

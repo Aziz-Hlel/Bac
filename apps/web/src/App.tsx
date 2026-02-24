@@ -9,12 +9,13 @@ import { AuthProvider } from './context/AuthContext';
 import SignIn from './components/SignIn/SignIn';
 import NetworkStatusGuard from './guard/NetworkStatusGuard';
 import { Toaster } from 'sonner';
-import Main from './pages/Sidebar';
+import SideBar from './pages/Sidebar';
 import { UserSessionProvider } from './context/UserConext';
 import UserPage from './pages/User';
 import OnboardingGuard from './guard/OnboardingGuard';
 import OnboardingExamsForms from './components/OnboardingForms/OnboardingExamsForms';
 import TeachersMainPage from './pages/TeachersMainPage';
+import Teachers2 from './pages/Teachers2';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -46,12 +47,13 @@ function App() {
                       <Route path="school-exams" element={<OnboardingExamsForms />} />
                     </Route>
                     <Route element={<OnboardingGuard />}>
-                      <Route element={<Main dir={dir} />}>
+                      <Route element={<SideBar dir={dir} />}>
                         <Route path="/" element={<Home />} />
                         <Route index path="/profile" element={<Profile />} />
 
                         <Route path="users/" element={<UserPage />}></Route>
                         <Route path="teachers/" element={<TeachersMainPage />}></Route>
+                        <Route path="teachers2/" element={<Teachers2 />}></Route>
                       </Route>
                     </Route>
                   </Route>

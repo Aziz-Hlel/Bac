@@ -2,12 +2,11 @@ import { AppSidebar } from '@/components/Navbar/app-sidebar';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { Outlet } from 'react-router-dom';
 
-const Main = ({ dir }: { dir: 'rtl' | 'ltr' }) => {
+const SideBar = ({ dir }: { dir: 'rtl' | 'ltr' }) => {
   return (
     <div className="flex h-screen fixed inset-0 overflow-hidden">
-      <SidebarProvider dir={dir}>
+      <SidebarProvider dir={dir} defaultOpen={false}>
         <AppSidebar dir={dir} side={dir === 'rtl' ? 'right' : 'left'} />
-
         <SidebarInset>
           {/* <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           <div className="grid auto-rows-min gap-4 md:grid-cols-3">
@@ -26,4 +25,4 @@ const Main = ({ dir }: { dir: 'rtl' | 'ltr' }) => {
   );
 };
 
-export default Main;
+export default SideBar;

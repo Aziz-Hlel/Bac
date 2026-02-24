@@ -55,6 +55,12 @@ const navRoutes: NavRoute[] = [
     isActive: true,
   },
   {
+    title: 'Teachers2',
+    url: '/teachers2',
+    icon: UsersRound,
+    isActive: true,
+  },
+  {
     title: 'Settings',
     url: '/settings',
     icon: Settings2,
