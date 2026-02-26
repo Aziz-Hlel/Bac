@@ -78,8 +78,7 @@ public class TeacherService {
         return teacherMapper.toDto(teacher.get());
     }
 
-
-        public CustomPage<TeacherResponse> searchTeachers(String search, RoleEnums role, Pageable pageable) {
+    public CustomPage<TeacherResponse> searchTeachers(String search, RoleEnums role, Pageable pageable) {
         Specification<Teacher> spec = TeacherSpecification.filter(search, role);
 
         Page<TeacherResponse> teachers = teacherRepo.findAll(spec, pageable)

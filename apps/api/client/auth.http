@@ -21,6 +21,7 @@ Content-Type: application/json
   "returnSecureToken": true
 }
 
+
 ### 
 # @name server_register
 POST {{baseUrl}}/auth/register
@@ -58,8 +59,8 @@ Content-Type: application/json
 POST {{firebaseUrl}}/token?key={{apiKey}}
 Content-Type: application/x-www-form-urlencoded
 
-grant_type=refresh_token&refresh_token={{firebase_login.response.body.refreshToken}}
-
+# ! idk what this line below
+ grant_type=refresh_token&refresh_token={{firebase_login.response.body.refreshToken}}
 
 
 

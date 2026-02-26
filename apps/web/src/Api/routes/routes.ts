@@ -15,6 +15,9 @@ const apiRoutes = {
   },
   teachers: {
     getPage: () => '/teachers' as const,
+    add: () => '/teachers' as const,
+    update: () => '/teachers' as const,
+    delete: () => '/teachers' as const,
   },
 
   services: {

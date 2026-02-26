@@ -1,11 +1,11 @@
-import type { CreateTeacher } from '@/types/teacher/Teacher';
+import type { CreateTeacherRequest } from '@/types/teacher/Teacher';
 import { type FC } from 'react';
 import { Controller, type UseFormReturn } from 'react-hook-form';
 import { Field, FieldError, FieldGroup, FieldLabel } from '../ui/field';
 import { Input } from '../ui/input';
 
 interface DetachedTeacherFormProps {
-  form: UseFormReturn<CreateTeacher>;
+  form: UseFormReturn<CreateTeacherRequest>;
 }
 
 const DetachedTeacherForm: FC<DetachedTeacherFormProps> = ({ form }) => {
