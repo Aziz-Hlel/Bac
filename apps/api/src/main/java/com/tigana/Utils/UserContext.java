@@ -1,6 +1,10 @@
 package com.tigana.Utils;
 
 import org.springframework.security.core.context.SecurityContextHolder;
+
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.security.core.Authentication;
 
 import com.google.firebase.auth.FirebaseToken;
@@ -10,7 +14,8 @@ import lombok.Data;
 @Data
 public class UserContext {
 
-    private UserContext() {} // utility class, cannot inject beans here
+    private UserContext() {
+    } // utility class, cannot inject beans here
 
     public static FirebaseToken getCurrentUserDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -22,5 +27,11 @@ public class UserContext {
 
     public static String getCurrentUserId() {
         return getCurrentUserDetails().getUid();
+    }
+
+    public static Optional<UUID> getCurrentUserSchoolId() {
+        return Optional.ofNullable(getCurrentUserDetails().getClaims().get("schoolId"))
+                .map(Object::toString)
+                .map(UUID::fromString);
     }
 }

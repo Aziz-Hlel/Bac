@@ -17,7 +17,7 @@ const useGetTableData = () => {
   const { queryParams } = useQueryParams();
   const adjustedQueryParams = {
     ...queryParams,
-    page: queryParams.page,
+    page: queryParams.page - 1,
   };
 
   const { data, isFetching } = useQuery({

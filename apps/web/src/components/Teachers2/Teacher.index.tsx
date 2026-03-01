@@ -2,7 +2,7 @@ import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle }
 import BreadcrumbHeader from '@/pages/Header';
 import { Button } from '../ui/button';
 import { useSelectedRow } from './context/selected-row-provider';
-// import DialogContainer from './dialogs/DialogContainer';
+import DialogContainer from './dialogs/DialogContainer';
 import TeacherTable from './TeacherTable';
 
 const TeacherIndex = () => {
@@ -21,7 +21,7 @@ const TeacherIndex = () => {
           </CardHeader>
           <CardContent>
             <TeacherTable />
-            {/* <DialogContainer /> */}
+            <DialogContainer />
           </CardContent>
         </Card>
       </div>

@@ -44,13 +44,12 @@ public class TeacherController {
     }
 
     @PutMapping("/{teacherId}")
-    public ResponseEntity<TeacherResponse> put(@PathVariable String teacherId,
+    public ResponseEntity<TeacherResponse> put(@PathVariable UUID teacherId,
             @RequestBody @Valid TeacherRequest teacherRequest) {
 
         String UserId = UserContext.getCurrentUserId();
 
-        TeacherResponse updatedEntity = teacherService.updateTeacher(teacherRequest, UUID.fromString(teacherId),
-                UserId);
+        TeacherResponse updatedEntity = teacherService.updateTeacher(teacherRequest, teacherId, UserId);
 
         return ResponseEntity.ok(updatedEntity);
     }
@@ -66,10 +65,10 @@ public class TeacherController {
     };
 
     @GetMapping({ "", "/" })
-    public CustomPage<TeacherResponse> teachers(@RequestParam(required = false) String search,
+    public CustomPage<TeacherResponse> getPage(@RequestParam(required = false) String search,
             @RequestParam(required = false) RoleEnums role,
             @PageableDefault(size = 5, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
-        var teachers = teacherService.searchTeachers(search, role, pageable);
+        var teachers = teacherService.getPage(search, role, pageable);
 
         return teachers;
 

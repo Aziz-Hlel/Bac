@@ -17,9 +17,8 @@ import com.tigana.Teachers.DTO.TeacherResponse;
 import com.tigana.Teachers.Mapper.TeacherMapper;
 import com.tigana.Teachers.Model.Teacher;
 import com.tigana.Teachers.Repo.TeacherRepo;
-import com.tigana.Users.DTO.UserResponse;
 import com.tigana.Users.Model.User;
-import com.tigana.Users.Service.UserSpecification;
+import com.tigana.Utils.UserContext;
 import com.tigana.shared.Dto.CustomPage;
 
 import jakarta.persistence.EntityManager;
@@ -37,8 +36,11 @@ public class TeacherService {
     private final TeacherMapper teacherMapper;
 
     public UUID createTeacher(TeacherRequest teacherRequest, String userId) {
+        Optional<UUID> schoolId = UserContext.getCurrentUserSchoolId();
+        if (schoolId.isEmpty())
+            throw new ForbiddenAccessException("User doesn't have a school");
 
-        School school = entityManager.getReference(School.class, teacherRequest.getSchoolId());
+        School school = entityManager.getReference(School.class, schoolId.get());
         User user = entityManager.getReference(User.class, userId);
 
         Teacher Entity = teacherMapper.toEntity(teacherRequest, school, user);
@@ -78,7 +80,7 @@ public class TeacherService {
         return teacherMapper.toDto(teacher.get());
     }
 
-    public CustomPage<TeacherResponse> searchTeachers(String search, RoleEnums role, Pageable pageable) {
+    public CustomPage<TeacherResponse> getPage(String search, RoleEnums role, Pageable pageable) {
         Specification<Teacher> spec = TeacherSpecification.filter(search, role);
 
         Page<TeacherResponse> teachers = teacherRepo.findAll(spec, pageable)

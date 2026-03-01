@@ -28,7 +28,7 @@ public class TeacherRequest {
 
     private SubjectEnums subject;
 
-    @NotNull
-    private UUID schoolId;
+    // @NotNull
+    // private UUID schoolId;
 
 }

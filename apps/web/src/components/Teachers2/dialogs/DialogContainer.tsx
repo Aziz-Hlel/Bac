@@ -1,15 +1,14 @@
 import { useSelectedRow } from '../context/selected-row-provider';
-import AddOffer from './AddEntertainment';
-import DeleteProduct from './DeleteEntertainment';
-import EditProduct from './EditEntertainment';
-import FeatureEntertainment from './FeatureEntertainment';
+import AddTeacher from './AddTeacher';
+import DeleteTeacher from './DeleteTeacher';
+import EditTeacher from './EditTeacher';
 
 const DialogContainer = () => {
   const { openDialog } = useSelectedRow();
-  if (openDialog === 'add') return <AddOffer />;
-  if (openDialog === 'delete') return <DeleteProduct />;
-  if (openDialog === 'edit') return <EditProduct />;
-  if (openDialog === 'feature') return <FeatureEntertainment />;
+  if (openDialog === 'add') return <AddTeacher />;
+  if (openDialog === 'delete') return <DeleteTeacher />;
+  if (openDialog === 'edit') return <EditTeacher />;
+  return null;
 };
 
 export default DialogContainer;

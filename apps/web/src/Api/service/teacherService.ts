@@ -8,7 +8,8 @@ const teacherService = {
     apiService.getThrowable<Page<TeacherRowResponse>>(apiRoutes.teachers.getPage(), { params: searchParams }),
   create: async (teacher: CreateTeacherRequest) =>
     apiService.postThrowable<TeacherRowResponse>(apiRoutes.teachers.add(), teacher),
-  update: async (teacher: UpdateTeacherRequest) =>
-    apiService.putThrowable<TeacherRowResponse>(apiRoutes.teachers.update(), teacher),
+  update: async (data: { id: string; teacher: UpdateTeacherRequest }) =>
+    apiService.putThrowable<TeacherRowResponse>(apiRoutes.teachers.update(data.id), data.teacher),
+  delete: async (id: string) => apiService.deleteThrowable(apiRoutes.teachers.delete(id)),
 };
 export default teacherService;

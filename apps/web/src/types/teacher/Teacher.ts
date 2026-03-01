@@ -1,21 +1,40 @@
 import { PrefixEnum, SubjectEnums } from '@/enums/rest';
 import { z } from 'zod';
 
-export const createTeacherSchema = z.object({
-  publicId: z.string().max(30).optional().nullable(),
-  prefix: z.enum(Object.keys(PrefixEnum)).optional().nullable(),
-  firstName: z.string({ error: 'First name is required' }).min(1, 'First name is required').max(100).trim(),
-  lastName: z.string({ error: 'Last name is required' }).min(1, 'Last name is required').max(100).trim(),
-  subject: z.enum(Object.keys(SubjectEnums)).optional().nullable(),
-  isTeacher: z.boolean(),
-});
+export const createTeacherSchema = z
+  .object({
+    publicId: z.string().max(30).optional().nullable(),
+    prefix: z.enum(Object.values(PrefixEnum)).nullable(),
+    firstName: z.string({ error: 'First name is required' }).min(1, 'First name is required').max(100).trim(),
+    lastName: z.string({ error: 'Last name is required' }).min(1, 'Last name is required').max(100).trim(),
+    subject: z.enum(Object.values(SubjectEnums)).nullable(),
+    isTeacher: z.boolean(),
+  })
+  .refine(
+    (data) => {
+      if (data.isTeacher) {
+        return data.subject !== null;
+      }
+      return true;
+    },
+    { message: 'Subject is required when the person is a teacher', path: ['subject'] },
+  )
+  .refine(
+    (data) => {
+      if (!data.isTeacher) {
+        return data.subject === null;
+      }
+      return true;
+    },
+    { message: 'Subject must be null when the person is not a teacher', path: ['subject'] },
+  );
 
 export const updateTeacherSchema = z.object({
-  publicId: z.string().max(30).optional().nullable(),
-  prefix: z.enum(Object.keys(PrefixEnum)).optional().nullable(),
+  publicId: z.string().max(30).nullable(),
+  prefix: z.enum(Object.values(PrefixEnum)).nullable(),
   firstName: z.string({ error: 'First name is required' }).min(1, 'First name is required').max(100).trim(),
   lastName: z.string({ error: 'Last name is required' }).min(1, 'Last name is required').max(100).trim(),
-  subject: z.enum(Object.keys(SubjectEnums)).optional().nullable(),
+  subject: z.enum(Object.values(SubjectEnums)).nullable(),
   isTeacher: z.boolean(),
 });
 
@@ -23,10 +42,10 @@ export const updateTeacherSchema = z.object({
 export const teacherResponseSchema = z.object({
   id: z.uuid(),
   publicId: z.string().max(30).nullable(),
-  prefix: z.enum(Object.keys(PrefixEnum)).nullable(),
+  prefix: z.enum(Object.values(PrefixEnum)).nullable(),
   firstName: z.string().max(100),
   lastName: z.string().max(100),
-  subject: z.enum(Object.keys(SubjectEnums)).nullable(),
+  subject: z.enum(Object.values(SubjectEnums)).nullable(),
   isTeacher: z.boolean(),
   schoolId: z.uuid(),
   userId: z.string(),
