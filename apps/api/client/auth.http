@@ -59,8 +59,7 @@ Content-Type: application/json
 POST {{firebaseUrl}}/token?key={{apiKey}}
 Content-Type: application/x-www-form-urlencoded
 
-# ! idk what this line below
- grant_type=refresh_token&refresh_token={{firebase_login.response.body.refreshToken}}
+grant_type=refresh_token&refresh_token={{firebase_login.response.body.refreshToken}}
 
 
 

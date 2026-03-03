@@ -11,6 +11,7 @@ import com.tigana.ClassUnit.DTO.ClassUnitResponse;
 import com.tigana.ClassUnit.Mapper.ClassUnitMapper;
 import com.tigana.ClassUnit.Model.ClassUnit;
 import com.tigana.ClassUnit.Repo.ClassUnitRepo;
+import com.tigana.ErrorHandler.Exceptions.ForbiddenAccessException;
 import com.tigana.ErrorHandler.Exceptions.ResourceNotFoundException;
 import com.tigana.School.Model.School;
 import com.tigana.School.Service.SchoolService;
@@ -48,12 +49,12 @@ public class ClassUnitService {
 
     }
 
-    public void updateClassUnit(ClassUnitRequest request, UUID classUnitId) {
-
+    public void updateClassUnit(ClassUnitRequest request, UUID classUnitId, String userId, UUID schoolId) {
+        // ! you need to check if the school actually belongs to the user
         ClassUnit entity = classUnitRepo.findById(classUnitId)
                 .orElseThrow(() -> new ResourceNotFoundException("ClassUnit not found"));
 
-        ClassUnit updatedEntity = toEntity(request, entity.getSchool().getUser().getId(), entity.getSchool().getId());
+        ClassUnit updatedEntity = classUnitMapper.toUpdatedEntity(entity, request);
 
         classUnitRepo.save(updatedEntity);
 
@@ -89,5 +90,16 @@ public class ClassUnitService {
         return response;
 
     };
+
+    public void delete(UUID classUnitId, UUID schoolId) {
+        ClassUnit classUnit = classUnitRepo.findById(classUnitId)
+                .orElseThrow(() -> new ResourceNotFoundException("ClassUnit not found"));
+
+        if (!classUnit.getSchool().getId().equals(schoolId)) {
+            throw new ForbiddenAccessException("ClassUnit does not belong to the user's school");
+        }
+
+        classUnitRepo.delete(classUnit);
+    }
 
 }
